@@ -1,0 +1,15 @@
+data
+#world
+*.o
+*.dge
+*.exe
+*.dll
+*.bat
+*.BAS
+*.bas
+*.BI
+*.bin
+*.cfg
+*.mak
+*.rec
+todo.txt
