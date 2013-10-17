@@ -1,5 +1,3 @@
-data
-#world
 *.o
 *.dge
 *.exe
@@ -8,8 +6,9 @@ data
 *.BAS
 *.bas
 *.BI
-*.bin
-*.cfg
-*.mak
-*.rec
+*.BIN
+*.CFG
+*.MAK
+*.REC
+*.EXE
 todo.txt
