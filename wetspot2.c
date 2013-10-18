@@ -164,7 +164,7 @@ void CheckStatus()
 		if(Game.status > 0) Game.status++;
 	}
 
-	if(Game.mode == HIDDEN || Game.mode == DEMO) return;
+	if(Game.mode == DEMO) return;
 
 	// the game is paused
 	if(keys[SDLK_RETURN]) {
@@ -240,7 +240,7 @@ void MoveShots()
 								Player[Collision].dir = -8;
 								Player[Collision].speed = 2;
 								Player[Collision].dead = TRUE;
-								if(Game.mode != HIDDEN) Player[Collision].lives--;
+								Player[Collision].lives--;
 								if(Player[Collision].lives == -1) Player[Collision].levelreached = (Game.area * 5) + Game.level;
 								Shot[i].typ = 0;
 								PlaySound(16);
@@ -271,7 +271,7 @@ void MoveShots()
 						Player[Collision].dir = -8;
 						Player[Collision].speed = 2;
 						Player[Collision].dead = TRUE;
-						if(Game.mode != HIDDEN) Player[Collision].lives--;
+						Player[Collision].lives--;
 						if(Player[Collision].lives == -1) Player[Collision].levelreached = (Game.area * 5) + Game.level;
 						Shot[i].typ = 0;
 						PlaySound(16);
@@ -1120,7 +1120,7 @@ void MoveEnemies()
 				Player[Collision].dir = -8;
 				Player[Collision].speed = 2;
 				Player[Collision].dead = TRUE;
-				if(Game.mode != HIDDEN) Player[Collision].lives--;
+				Player[Collision].lives--;
 				if(Player[Collision].lives == -1) Player[Collision].levelreached = Game.area * 5 + Game.level;
 				PlaySound(16);
 			}
@@ -1468,7 +1468,7 @@ void MoveBlocks()
 					Player[Collision].dir = -8;
 					Player[Collision].speed = 2;
 					Player[Collision].dead = TRUE;
-					if(Game.mode != HIDDEN) Player[Collision].lives--;
+					Player[Collision].lives--;
 					if(Player[Collision].lives == -1) Player[Collision].levelreached = Game.area * 5 + Game.level;
 					PlaySound(16);
 				}
@@ -2173,8 +2173,6 @@ _reinit_area:
 	}
 _exit:
 	SDL_SetPalette(gamescreen, SDL_LOGPAL, syspal, 0, 256);
-
-	//if(AbortFlag) Game.mode = HIDDEN;
 }
 
 void InitGame()

@@ -55,7 +55,7 @@ typedef struct {
 // Holds all the main game variables
 typedef struct {
 	int players;	// number of players of current game
-	int mode;	// game mode (NORMAL, DEMO or HIDDEN)
+	int mode;	// game mode (NORMAL, DEMO or POTIONBONUS)
 	int time;	// level time left
 	int monsters;	// number of monsters still alive on the level
 	int status;	// game status (has different purposes)
@@ -115,7 +115,6 @@ typedef struct {
 #define NORMAL		0
 #define DEMO		1
 #define POTIONBONUS	2
-#define HIDDEN		3
 
 #define KEYBOARD1	0
 #define KEYBOARD2	1
