@@ -1180,23 +1180,23 @@ void GetAction(int PlayerNum)
 
 	if(Game.mode == NORMAL || Game.mode == POTIONBONUS) {
 		// Process player input
-		// TEMPORARY CODE
-		
-		if(keys[SDLK_LCTRL]) { // Fire button pressed
+		int pkeys = GetPlayerInput(PlayerNum);
+
+		if(pkeys & WKEY_FIRE) { // Fire button pressed
 			Player[PlayerNum].action = 2;
-		} else if(keys[SDLK_DOWN]) { // Going down
+		} else if(pkeys & WKEY_DOWN) { // Going down
 			Player[PlayerNum].dir = 0;
 			if(cell[Player[PlayerNum].y / 16 + 1][Player[PlayerNum].x / 16].st == 0)
 				Player[PlayerNum].action = 1;
-		} else if(keys[SDLK_LEFT]) { // Going left
+		} else if(pkeys & WKEY_LEFT) { // Going left
 			Player[PlayerNum].dir = 1;
 			if(cell[Player[PlayerNum].y / 16][Player[PlayerNum].x / 16 - 1].st == 0)
 				Player[PlayerNum].action = 1;
-		} else if(keys[SDLK_UP]) { // Going up
+		} else if(pkeys & WKEY_UP) { // Going up
 			Player[PlayerNum].dir = 2;
 			if(cell[Player[PlayerNum].y / 16 - 1][Player[PlayerNum].x / 16].st == 0)
 				Player[PlayerNum].action = 1;
-		} else if(keys[SDLK_RIGHT]) { // Going right
+		} else if(pkeys & WKEY_RIGHT) { // Going right
 			Player[PlayerNum].dir = 3;
 			if(cell[Player[PlayerNum].y / 16][Player[PlayerNum].x / 16 + 1].st == 0)
 				Player[PlayerNum].action = 1;
@@ -2020,6 +2020,9 @@ void PlayGame()
 		Player[i].dir = 0;
 		Player[i].levelreached = Game.area * 5 + Game.level;
 	}
+
+	// Set default key layout for players
+	SetPlayerKeys(Game.players - 1);
 
 	Game.status = 0;
 	Game.numareas = wwd->numofareas;

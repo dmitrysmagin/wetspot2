@@ -15,5 +15,14 @@
  *
  */
 
+#define WKEY_FIRE	(1 << 0)
+#define WKEY_DOWN	(1 << 1)
+#define WKEY_LEFT	(1 << 2)
+#define WKEY_UP		(1 << 3)
+#define WKEY_RIGHT	(1 << 4)
+
+int GetPlayerInput(int pnum);
+void SetPlayerKeys(int pnum);
+
 int SDL_Pressed();
 void SDL_PurgeEvents();

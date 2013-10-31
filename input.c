@@ -31,6 +31,55 @@
 #include "world.h"
 #include "input.h"
 
+static int pkeys[2][5] =
+{
+	{
+		SDLK_LCTRL,
+		SDLK_DOWN,
+		SDLK_LEFT,
+		SDLK_UP,
+		SDLK_RIGHT
+	},
+	{
+		SDLK_BACKSPACE,
+		SDLK_LALT,
+		SDLK_LSHIFT,
+		SDLK_SPACE,
+		SDLK_LCTRL
+	}
+};
+
+static int pbits[5] =
+{
+	WKEY_FIRE,
+	WKEY_DOWN,
+	WKEY_LEFT,
+	WKEY_UP,
+	WKEY_RIGHT
+};
+
+int GetPlayerInput(int pnum)
+{
+	int result = 0;
+
+	for(int i = 0; i < 5; i++)
+		result |= (keys[pkeys[pnum][i]] ? pbits[i] : 0);
+
+	return result;
+}
+
+// Set default keys layout for 1 or 2 players
+void SetPlayerKeys(int pnum)
+{
+	if(pnum == 0) {
+		// 1 player
+		pkeys[0][0] = SDLK_LCTRL;
+	} else {
+		// 2 players
+		pkeys[0][0] = SDLK_TAB;
+	}
+}
+
 int SDL_Pressed()
 {
 	SDL_Event event;
