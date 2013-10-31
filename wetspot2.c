@@ -2225,6 +2225,7 @@ int main()
 	atexit(SDL_Quit);
 
 	screen = SDL_SetVideoMode(320, 240, 16, SDL_SWSURFACE);
+	SDL_ShowCursor(SDL_DISABLE);
 
 	SoundInit();
 
