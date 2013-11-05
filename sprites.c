@@ -20,6 +20,7 @@
 #include <string.h>
 #include <math.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_rotozoom.h>
 
 #include "wetspot2.h"
 #include "sprites.h"
@@ -111,7 +112,13 @@ void BlitAndWait(int cycles)
 	dst.x = 0;
 	dst.y = 20;
 
+#ifdef SCALE_SCREEN
+	SDL_Surface *tmp = zoomSurface(gamescreen, 2, 2, 0);
+	SDL_FillRect(screen, NULL, 0);
+	SDL_BlitSurface(tmp, NULL, screen, NULL);
+#else
 	SDL_BlitSurface(gamescreen, NULL, screen, &dst);
+#endif
 	SDL_Flip(screen);
 	for(int j = 0; j < cycles; j++) {
 		SDL_PumpEvents();
