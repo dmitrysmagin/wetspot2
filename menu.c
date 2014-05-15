@@ -70,9 +70,9 @@ MENUENTRY MainMenuEntries[] = {
 	{ "START TWO PLAYERS GAME", 135, 254, &ac_StartGame },
 	{ "ENTER PASSWORD", 145, 254, &ac_EnterPassword },
 	{ "LOAD EXTERNAL WORLD", 155, 254, &ac_ChooseWorld },
-	{ "OPTIONS", 165, 254, &ac_RunOptionsMenu },
-	{ "SHOW CREDITS", 175, 254, &ac_ShowCredits },
-	{ "QUIT", 185, 254, &ac_RunQuitMenu }
+	//{ "OPTIONS", 165, 254, &ac_RunOptionsMenu },
+	{ "SHOW CREDITS", 175-10, 254, &ac_ShowCredits },
+	{ "QUIT", 185-10, 254, &ac_RunQuitMenu }
 };
 
 MENUENTRY QuitMenuEntries[] = {
@@ -90,7 +90,7 @@ MENU MainMenu = {
 	"rr MAIN MENU ss",
 	110, 255,
 	MainMenuEntries,
-	7, 0
+	6 /* 7 */, 0
 };
 
 MENU QuitMenu = {
