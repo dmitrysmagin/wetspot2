@@ -1950,9 +1950,9 @@ void ReadyToStart()
 	sprintf(line, "AREA %i-%i", Game.area + 1, Game.level + 1);
 
 	for(int o = 0; o < 4; o++) {
+		DrawScreen();
 		SPrint(line, ((320 - (strlen(line) * 8)) / 2), 88, Game.textcol);
 		SPrint("GET READY!", 120, 96, Game.textcol);
-		DrawScreen();
 		BlitAndWait(24);
 		RedrawLevel();
 		DrawScreen();
