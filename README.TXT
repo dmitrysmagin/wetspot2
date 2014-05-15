@@ -20,11 +20,7 @@ Enhanced Creations home, the QuickBasic Enhanced Programming Page located at:
 
 TABLE OF CONTENTS ___________________________________________________________
 
-1 - Running the game
- 1.1 - The freeware concept
- 1.2 - Game requirements
- 1.3 - Installing the game
- 1.4 - The SETUP program
+1 - Why re-implementation?
 2 - Playing WetSpot 2
  2.1 - Your goal
  2.1 - The game menu
@@ -43,112 +39,22 @@ _____________________________________________________________________________
 
 
 =============================================================================
-1 - RUNNING THE GAME
+1 - WHY RE-IMPLEMENTATION
 =============================================================================
 
-1.1 - The freeware concept
+Originally Wetspot II was written by Angelo Mottola (Enhanced Creations) in
+1997-98. While being programmed in QuickBasic 4.5 it used some obscure
+techniques like machine code injecting, EMS memory using and programming
+SB Pro / 16 hardware directly. This allowed to reach the quality previously
+unthinkable for a QuickBasic games.
 
-WETSPOT 2 IS A FREEWARE PROGRAM. THIS MEANS THE AUTHOR GIVES YOU ALL HIS WORK
-WITHOUT GAINING SOME MONEY, AND ENCOURAGES YOU TO GIVE IT TO YOUR FRIENDS.
-IF YOU THINK MY GAME IS REALLY GOOD AND YOU WANT TO MAKE A DONATION, FEEL
-FREE OF DOING SO, AND CONTACT ME VIA E-MAIL.
-THIS PROGRAM WAS MADE USING LOTS OF ADVANCED QB PROGRAMMING TECHNIQUES, AND
-USES CALLS TO ASSEMBLY ROUTINES AND INTERRUPTS. A BAD USE OF IT MAY CAUSE YOUR
-SYSTEM TO CRASH, BUT YOU SHOULD HAVE NO PROBLEMS IF YOU READ CAREFULLY THE
-INSTRUCTIONS CONTAINED WITHIN THIS SMALL MANUAL. ANYWAY, THE AUTHOR IS NOT
-LIABLE FOR ANY DAMAGES CAUSED BY AN IMPROPER USE OF THIS SOFTWARE.
+Unfortunately these advanced techniques made this game non portable even
+to FreeBasic which came much later. The only way left was to reprogram this
+game completely from scratch.
 
-
-1.2 - Game requirements
-
-Since QB is a slow language, and this game does a lot of calculations, a
-medium-high end computer is required to play at a decent speed.
-
-The minimum configuration to run the compiled version is:
-- a 486DX2 based machine
-- about 370000 bytes of free base memory
-- 1344 Kbytes of free EMS memory
-With this configuration you'll be able to run the game, but it will go really
-slow; needless to say, a better machine should be your choice...
-
-For optimal performances, you should have:
-- a Pentium based machine or better
-- about 370000 bytes of free base memory
-- 1344 Kbytes of free EMS memory
-- a Sound Blaster compatible sound card
-- a joypad (a joystick will fit as well)
-
-I've made the game on my K6-200 with a SB16, and with such a configuration it
-works great; I've also tried it on a P133, and the results were the same.
-If you've problems with EMS, try looking at the "APPENDIX C - Known bugs and
-problem resolution" section of this manual. Remember also that to run the
-game under QB, you'll need a copy of QuickBasic 4.5, because of the advanced
-routines used and the multiple modules; in this case, you'll also need about
-590000 bytes of free base memory, because the IDE is really a memory-eater.
-Anyway I suggest you to use always the compiled version, because it's faster.
-
-
-1.3 - Installing the game
-
-After unzipping the game packet file, you should have all the files into the
-same directory; this can be anywhere on your HD as well as on a floppy disk.
-
-WetSpot II requires expanded memory (EMS) to run; if you don't know what I'm
-talking about, try adding the following lines at the very beginning of your
-CONFIG.SYS file:
-
-DEVICE=C:\WINDOWS\HIMEM.SYS
-DEVICE=C:\WINDOWS\EMM386.EXE 2000 RAM
-
-Here I suppose you have Windows 95 under the WINDOWS directory, so there you
-should have these files. HIMEM.SYS is used by EMM386.EXE, which is an
-expanded memory manager (EMM). The "2000 RAM" parameter passed to this driver
-specifies the amount of EMS memory in kbytes to make available under DOS
-(2000 are more than enough to play the game).
-
-If you have a sound card, and you want to hear the MIDI musics, you'll need
-to load the SBMIDI.EXE driver provided within the package, before running
-the game. This driver must be loaded from DOS and it must be resident into
-interrupt 80h, so if you have such an interrupt already used, free it, or
-you'll have to disable the musics.
-
-To load the game under QB 4.5, run the IDE with the /L option. This will load
-the default quicklibrary which holds the interrupt and assembly call routines.
-If this is the first time you run the game, you'll need to run the SETUP.BAS
-program before executing it; see the next section for details.
-Once the game settings have been choosen with the SETUP, load WETSPOT2.BAS,
-which is the main game module; run this to play WetSpot 2.
-The file WETSPOT2.MAK is the project file and contains the file names of the
-other modules, so that QB can load them all when the main one is loaded into
-the IDE. The WETSPOT2.BI file is the include file needed by all the modules,
-and contains SUBs, FUNCTIONs, constants and common variables declarations. If
-you want to compile the game, remember to change the value of the constant
-COMPILED from "FALSE" to "TRUE" in this file; this will slow down the program
-because an EXE is faster than the interpreted code.
-
-
-1.4 - The SETUP program
-
-Before playing the game for the first time, you'll have to run this program.
-It allows you to change a lot of settings according to the hardware of your
-computer; several detection routines will detect the available devices to
-ensure a safe configuration.
-To navigate the menus, use the arrow keys to move the highlighted option and
-the <ENTER> key to select it.
-
-þ The SOUNDS menu will be activated if a sound card is detected. This will
-let you change its settings, such as the base address (can be 210,220,230 or
-240), the low DMA channel used to play sounds (can be 0,1,2 or 3) and if they
-must be on or off.
-
-þ The CONTROLS menu will let you reset the keys to default (see sections
-"2.3 - Controls" and "APPENDIX A - Default keys" for details), and if a
-joystick/joypad is available, to change its resolution and to test it.
-
-Once you've made your changes, select the "SAVE SETTINGS AND EXIT" option
-from the main menu. Now you should be able to run WetSpot 2 without errors;
-anyway, if you have any trouble, try looking at sections APPENDIX B - Error
-messages, and APPENDIX C - Known bugs and problem resolutions.
+And here it comes, a full re-implementation of game engine entirely in pure C
+using SDL library. This allows porting to any platform supporting SDL: windows,
+linux, freebsd and others.
 
 
 =============================================================================
