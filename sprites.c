@@ -116,6 +116,7 @@ void BlitAndWait(int cycles)
 	SDL_Surface *tmp = zoomSurface(gamescreen, 2, 2, 0);
 	SDL_FillRect(screen, NULL, 0);
 	SDL_BlitSurface(tmp, NULL, screen, NULL);
+	SDL_FreeSurface(tmp);
 #else
 	SDL_BlitSurface(gamescreen, NULL, screen, &dst);
 #endif
