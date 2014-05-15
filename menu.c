@@ -57,6 +57,7 @@ typedef struct {
 
 void ac_StartGame();
 void ac_ChooseWorld();
+void ac_EnterPassword();
 void ac_RunOptionsMenu();
 void ac_RunQuitMenu();
 
@@ -66,7 +67,7 @@ void ac_GoBack();
 MENUENTRY MainMenuEntries[] = {
 	{ "START ONE PLAYER GAME", 125, 254, &ac_StartGame },
 	{ "START TWO PLAYERS GAME", 135, 254, &ac_StartGame },
-	{ "ENTER PASSWORD", 145, 254, NULL },
+	{ "ENTER PASSWORD", 145, 254, &ac_EnterPassword },
 	{ "LOAD EXTERNAL WORLD", 155, 254, &ac_ChooseWorld },
 	{ "OPTIONS", 165, 254, &ac_RunOptionsMenu },
 	{ "SHOW CREDITS", 175, 254, NULL },
@@ -103,6 +104,13 @@ MENU OptionsMenu = {
 	110, 255,
 	OptionsMenuEntries,
 	3, 0
+};
+
+MENU PasswordMenu = {
+	"rr INSERT PASSWORD ss",
+	110, 255,
+	NULL,
+	0, 0
 };
 
 MENU WorldMenu = {
@@ -189,6 +197,110 @@ void ac_StartGame()
 {
 	PlayGame(NORMAL, 0, 0, MainMenu.sel + 1);
 	//CheckForRecord();
+}
+
+// 51 available characters
+char PassChars[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'!\"$%&/()-+#@e ";
+
+void DrawLetters(int cur_letter)
+{
+	char text[256];
+
+	memset(text, 0, sizeof(text));
+
+	if(cur_letter < 16) {
+		strncat(text, PassChars + cur_letter + 35, 16 - cur_letter);
+		strncat(text, PassChars, 16 + cur_letter);
+	} else if (cur_letter > 35) {
+		strncat(text, PassChars + cur_letter - 16, 51 - cur_letter + 16);
+		strncat(text, PassChars, 16 - 51 + cur_letter);
+	} else {
+		strncat(text, PassChars + cur_letter - 16, 32);
+	}
+
+	MPrint(text, 125, 255, 252);
+}
+
+int check_pass(char *s)
+{
+	int i, maxi;
+
+	for(i = 0, maxi = wwd->numofareas * 4; i < maxi; i++) {
+		if(strncmp(s, (char *)wwd->pass + i * 4, 4) == 0)
+			return i;
+	}
+
+	return -1;
+}
+
+void ac_EnterPassword()
+{
+	SDL_Event event;
+	MENU *m = &PasswordMenu;
+	char pass[16];
+
+	m->num = 51;
+	m->sel = 0;
+	memset(pass, 0, sizeof(pass));
+
+	done = 0;
+	while(!done) {
+		while(SDL_PollEvent(&event))
+			if(event.type == SDL_KEYDOWN) {
+				if(event.key.keysym.sym == SDLK_LEFT) {
+					if(m->sel > 0) {
+						m->sel--;
+						PlaySound(0);
+					} else {
+						m->sel = m->num - 1;
+					}
+				} else if(event.key.keysym.sym == SDLK_RIGHT) {
+					if(m->sel < m->num - 1) {
+						m->sel++;
+						PlaySound(0);
+					} else {
+						m->sel = 0;
+					}
+				} else if(event.key.keysym.sym == SDLK_LCTRL) {
+					if(strlen(pass) < 5) {
+						strncat(pass, PassChars + m->sel, 1);
+					}
+				} else if(event.key.keysym.sym == SDLK_LALT) {
+					if(strlen(pass) != 0) {
+						pass[strlen(pass) - 1] = 0;
+					}
+				} else if(event.key.keysym.sym == SDLK_RETURN) {
+					int i;
+
+					if((i = check_pass(pass)) != -1 &&
+					   (pass[4] == '1' || pass[4] == '2')) {
+						PlayGame(NORMAL, i, 0, pass[4] & 3);
+					} else {
+						PlaySound(1);
+						MPrint("INVALID PASSWORD!!", 190, 255, 252);
+						BlitAndWait(50);
+					}
+					done = 1;
+				} else if(event.key.keysym.sym == SDLK_ESCAPE) {
+					done = 1;
+				}
+			}
+
+		SDL_BlitSurface(title, NULL, gamescreen, NULL);
+		MPrint(m->header, m->y, m->col, 252);
+
+		DrawLetters(m->sel);
+		MPrint(pass, 150, 255, 252);
+		PutBox(158, 123, 168, 135, 83);
+		PutBox(134, 148, 184, 160, 83);
+
+		MPrint("PRESS LEFT/RIGHT TO SELECT", 170, 255, 252);
+		MPrint("<START> TO CONFIRM", 180, 255, 252);
+
+		BlitAndWait(1);
+	}
+
+	done = 0;
 }
 
 WORLDINFO world_info[256]; // 256 worlds should be enough
