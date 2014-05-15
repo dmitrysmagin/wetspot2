@@ -70,7 +70,7 @@ void CheckTime() // TimePass:
 					Death[h].speed = .5;
 				}
 			} else {
-				DrawScreen();
+				DrawObjects();
 				SPrint("POTION BONUS", 112, 50, Game.textcol);
 				BlastLine(110, 59, 208, 59, Game.textcol);
 				SPrint("NO BONUS!", 124, 83, Game.textcol);
@@ -83,13 +83,13 @@ void CheckTime() // TimePass:
 		if(Game.time == 15) {
 			if(Game.status > -501 && Game.status < 1) {
 				RedrawLevel();
-				DrawScreen();
+				DrawObjects();
 				PlaySound(4); //DMAplay EMSseg, 0, SoundLen(4), 11025&
 				for(int o = 0; o < 4; o++) {
 					SPrint("HURRY UP!!", 120, 90, Game.textcol);
 					BlitAndWait(24);
 					RedrawLevel();
-					DrawScreen();
+					DrawObjects();
 					BlitAndWait(24);
 				}
 				//if(Game.status > -1) ChangePal(0);

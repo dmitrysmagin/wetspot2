@@ -139,6 +139,6 @@ extern SDL_Surface *screen;
 extern SDL_Surface *gamescreen;
 
 void RedrawLevel();
-void DrawScreen();
+void DrawObjects();
 
 void PlayGame(int mode, int area, int level, int players);

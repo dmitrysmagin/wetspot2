@@ -142,7 +142,7 @@ void CheckStatus()
 		// Do the lightnings
 		Game.status = 0;
 		for(int i = 0; i < 80; i++) {
-			DrawScreen();
+			DrawObjects();
 		}
 		for(int i = 0; i < MAXENEMIES; i++) {
 			if(Enemy[i].typ > 0) KillEnemy(i);
@@ -171,7 +171,7 @@ void CheckStatus()
 		keys[SDLK_RETURN] = 0;
 		TimerOn = FALSE;
 		PlaySound(1);
-		DrawScreen();
+		DrawObjects();
 		SPrint("PAUSE!", 136, 96, Game.textcol);
 		do {
 			BlitAndWait(2);
@@ -1503,8 +1503,7 @@ void MoveBlocks()
 	}
 }
 
-// Update Buffer and copy it to the screen
-void DrawScreen() // better name: DrawObjects
+void DrawObjects()
 {
 	int F = 0, zd = 0;
 
@@ -1950,12 +1949,12 @@ void ReadyToStart()
 	sprintf(line, "AREA %i-%i", Game.area + 1, Game.level + 1);
 
 	for(int o = 0; o < 4; o++) {
-		DrawScreen();
+		DrawObjects();
 		SPrint(line, ((320 - (strlen(line) * 8)) / 2), 88, Game.textcol);
 		SPrint("GET READY!", 120, 96, Game.textcol);
 		BlitAndWait(24);
 		RedrawLevel();
-		DrawScreen();
+		DrawObjects();
 		BlitAndWait(24);
 	}
 }
@@ -1981,7 +1980,7 @@ int AbortGameYN()
 		}
 
 		RedrawLevel();
-		DrawScreen();
+		DrawObjects();
 
 		SPrint("ABORT CURRENT GAME (YES/NO)?", 60, 96, Game.textcol);
 		if(choice == 0) {
@@ -2077,7 +2076,7 @@ _reinit_area:
 				}
 			}
 
-			DrawScreen();
+			DrawObjects();
 			BlitAndWait(2);
 		} while(Game.status < 500);
 
@@ -2107,7 +2106,7 @@ _reinit_area:
 			do {
 				Game.status++;
 				RedrawLevel();
-				DrawScreen();
+				DrawObjects();
 				BlitAndWait(2);
 			} while(Game.status < 516);
 
@@ -2129,7 +2128,7 @@ _reinit_area:
 						CheckScore(i);
 					}
 				}
-				DrawScreen();
+				DrawObjects();
 				SPrint("TOTAL DESTRUCTION BONUS", 68, 92, Game.textcol);
 				SPrint("50000 PTS", 124, 101, Game.textcol);
 			}
