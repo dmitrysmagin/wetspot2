@@ -1998,10 +1998,15 @@ int AbortGameYN()
 	return result;
 }
 
-void PlayGame()
+void PlayGame(int mode, int area, int level, int players)
 {
 	int AbortFlag = FALSE;
 	int LevelPass = TRUE;
+
+	Game.mode = mode;
+	Game.area = area;
+	Game.level = level;
+	Game.players = players;
 
 	// Set the default game palette
 	SDL_SetPalette(gamescreen, SDL_LOGPAL, gamepal, 0, 256);
@@ -2026,14 +2031,6 @@ void PlayGame()
 
 	Game.status = 0;
 	Game.numareas = wwd->numofareas;
-
-	// If we're in demo mode, choose a random level
-	if(Game.mode == DEMO) {
-		srand(time(NULL));
-		Game.area = rand() % 10;
-		if(Game.area > Game.numareas) Game.area = Game.numareas - 1;
-		Game.level = rand() % 5;
-	}
 
 _reinit_area:
 	InitArea(Game.area);
@@ -2175,6 +2172,7 @@ _reinit_area:
 		//Fade 0
 	}
 _exit:
+	SDL_PurgeEvents();
 	SDL_SetPalette(gamescreen, SDL_LOGPAL, syspal, 0, 256);
 }
 

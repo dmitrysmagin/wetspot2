@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -144,8 +145,6 @@ void RunMenu(MENU *m)
 
 	done = 0;
 
-	Game.mode = NORMAL;
-
 	while(!done) {
 		while(SDL_PollEvent(&event))
 			if(event.type == SDL_KEYDOWN) {
@@ -176,31 +175,20 @@ void RunMenu(MENU *m)
   
 		if(TimeToDemo == 1000) {
 			// If no keys are pressed for a while, starts the demo
-			Game.mode = DEMO;
-			Game.players = (rand() % 2) + 1;
-			PlayGame();
+			srand(time(NULL));
+			PlayGame(DEMO, rand() % wwd->numofareas, rand() % 5, (rand() % 2) + 1);
 			//CLS : Fade 1
 			//ShowCredits();
 			//ShowTop10(-1, -1);
-			//m->sel = -10;
-			SDL_PurgeEvents();
-			SDL_SetPalette(gamescreen, SDL_LOGPAL, syspal, 0, 256);
 			TimeToDemo = 0;
-			//break;
 		}
 	}
 }
 
 void ac_StartGame()
 {
-	Game.mode = NORMAL;
-	Game.players = MainMenu.sel + 1;
-	Game.area = 0; // 1
-	Game.level = 0; // 1
-	PlayGame();
+	PlayGame(NORMAL, 0, 0, MainMenu.sel + 1);
 	//CheckForRecord();
-	SDL_PurgeEvents();
-	SDL_SetPalette(gamescreen, SDL_LOGPAL, syspal, 0, 256);
 }
 
 WORLDINFO world_info[256]; // 256 worlds should be enough
