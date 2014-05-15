@@ -59,6 +59,7 @@ void ac_StartGame();
 void ac_ChooseWorld();
 void ac_EnterPassword();
 void ac_RunOptionsMenu();
+void ac_ShowCredits();
 void ac_RunQuitMenu();
 
 void ac_Quit();
@@ -70,7 +71,7 @@ MENUENTRY MainMenuEntries[] = {
 	{ "ENTER PASSWORD", 145, 254, &ac_EnterPassword },
 	{ "LOAD EXTERNAL WORLD", 155, 254, &ac_ChooseWorld },
 	{ "OPTIONS", 165, 254, &ac_RunOptionsMenu },
-	{ "SHOW CREDITS", 175, 254, NULL },
+	{ "SHOW CREDITS", 175, 254, &ac_ShowCredits },
 	{ "QUIT", 185, 254, &ac_RunQuitMenu }
 };
 
@@ -421,6 +422,35 @@ void ac_ChooseWorld()
 void ac_RunOptionsMenu()
 {
 	RunMenu(&OptionsMenu);
+	done = 0;
+}
+
+void ac_ShowCredits()
+{
+	SDL_Event event;
+
+	done = 0;
+
+	while(!done) {
+		while(SDL_PollEvent(&event))
+			if(event.type == SDL_KEYDOWN) {
+				done = 1;
+			}
+
+		SDL_BlitSurface(title, NULL, gamescreen, NULL);
+
+		MPrint("WETSPOT 2 REMAKE", 108, 255, 252);
+		MPrint("PORTED TO C/SDL", 122, 255, 252);
+		MPrint("BY DMITRY SMAGIN IN 2013-14", 132, 255, 252);
+		MPrint("ORIGINALLY CODED IN QUICKBASIC 4.5", 146, 255, 252);
+		MPrint("BY ANGELO MOTTOLA IN 1997-98", 156, 255, 252);
+
+		MPrint("GRAPHICS AND SFX BY ANGELO MOTTOLA", 170, 255, 252);
+		MPrint("MIDI MUSIC IS (C) OF RESPECTIVE OWNERS", 180, 255, 252);
+
+		BlitAndWait(1);
+	}
+
 	done = 0;
 }
 
