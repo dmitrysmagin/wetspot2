@@ -2031,8 +2031,6 @@ void TheEnd()
 	LoadMIDI("./world/THEEND.MID");
 	PlayMIDI();
 
-	//SPrint("THE END", 124, 96, 56);
-
 	// Makes the crabs and the enemies to walk throught this tunnel
 	// The crabs are faster than the enemies, that walk all with the same speed
 	for(int i = 0; i <= 340; i++) {
@@ -2144,8 +2142,32 @@ void TheEnd()
 
 	BlitAndWait(40);
 
+	// Initializes the falling enemies with random variables
+	srand(time(NULL));
+
 	SDL_PurgeEvents();
-	for(int i = 0; i < 1150; i++) {
+
+	for(int count = 0; count < 32000; count++) {
+		// Updates the buffer
+		SDL_BlitSurface(theend, NULL, gamescreen, NULL);
+		// TODO: add showing credits for the world
+		
+		// Handles the falling enemies
+		for(int i = 0; i <= 15; i++) {
+			PutShape((136 + ((DeadEnemy[i].frame / 2) * 7) + DeadEnemy[i].typ),
+				 DeadEnemy[i].x, DeadEnemy[i].y);
+			DeadEnemy[i].y += DeadEnemy[i].speed;
+			DeadEnemy[i].frame = (DeadEnemy[i].frame + 1) % 8;
+			if(count == 0 || DeadEnemy[i].y > 199) {
+				DeadEnemy[i].typ = rand() % 7; //INT(RND(1) * 7)
+				DeadEnemy[i].speed = rand() % 2 + 1; //(RND * 2) + 1
+				DeadEnemy[i].x = rand() % 336 - 16; //INT(RND(1) * 336) - 16
+				DeadEnemy[i].y = rand() % 216 - 16; //INT(RND(1) * 216) - 16
+				DeadEnemy[i].frame = rand() % 4; //INT(RND(1) * 4)
+			}
+		}
+
+		// Updates the screen
 		if(SDL_Pressed()) break;
 		BlitAndWait(2);
 	}
