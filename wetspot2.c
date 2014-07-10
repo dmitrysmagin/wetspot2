@@ -2150,8 +2150,14 @@ void TheEnd()
 	for(int count = 0; count < 32000; count++) {
 		// Updates the buffer
 		SDL_BlitSurface(theend, NULL, gamescreen, NULL);
-		// TODO: add showing credits for the world
-		
+
+		// Gets the world credits and prints them on the buffer
+		for(int i = 0; i < 20; i++) {
+			SPrint(wwd->credits[i],
+				(320 - strlen(wwd->credits[i]) * 8) / 2,
+				20 + i * 8, 208);
+		}
+
 		// Handles the falling enemies
 		for(int i = 0; i <= 15; i++) {
 			PutShape((136 + ((DeadEnemy[i].frame / 2) * 7) + DeadEnemy[i].typ),

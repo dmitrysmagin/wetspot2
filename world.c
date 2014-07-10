@@ -95,7 +95,12 @@ WORLD *LoadWorld(char *name)
 	// 20 passwords
 	fread(wwd->pass, 1, 20 * 4, f);
 
-	// creadits 30*20 chars
+	// credits, 20 strings * 30 chars
+	memset(wwd->credits, 0, 20*30);
+	for(int i = 0; i < 20; i++) {
+		fread(wwd->credits[i], 1, 30, f);
+		rtrim(wwd->credits[i]);
+	}
 
 	// roll thru all areas
 	for(int j = 0; j < wwd->numofareas; j++) {

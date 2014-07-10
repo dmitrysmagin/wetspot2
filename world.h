@@ -46,6 +46,7 @@ typedef struct {
 	char title[32];
 	char author[32];
 	char pass[20][4];
+	char credits[20][32];
 	AREA *area; // pointer to area array
 	char fullpath[256]; // fullpath to .WWD
 } WORLD;
