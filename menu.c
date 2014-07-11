@@ -38,6 +38,7 @@
 #include "menu.h"
 #include "input.h"
 #include "sound.h"
+#include "hiscore.h"
 
 SDL_Surface *title;
 
@@ -188,7 +189,7 @@ void RunMenu(MENU *m)
 			PlayGame(DEMO, rand() % wwd->numofareas, rand() % 5, (rand() % 2) + 1);
 			//CLS : Fade 1
 			//ShowCredits();
-			//ShowTop10(-1, -1);
+			ShowTop10(-1, -1);
 			TimeToDemo = 0;
 		}
 	}

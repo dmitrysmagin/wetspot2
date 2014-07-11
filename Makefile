@@ -11,7 +11,7 @@ LDFLAGS   =
 LIBS      = -lm -lSDL_gfx -lSDL -lSDL_image -lSDL_mixer
 
 OBJS      = wetspot2.o font.o palette.o timer.o logo.o sprites.o \
-	    menu.o world.o input.o sound.o theend.o
+	    menu.o world.o input.o sound.o theend.o hiscore.o
 
 # midiplay
 OBJS     += midiplay/mid_core.o midiplay/mid_drv.o midiplay/mid_opl3.o \

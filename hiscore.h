@@ -15,10 +15,4 @@
  *
  */
 
-extern SDL_Surface *sprites;
-
-void PutShape(int spritenum, int x, int y);
-void BlastLine(int x1, int y1, int x2, int y2, unsigned char color);
-void BlastPset(int x, int y, unsigned char color);
-void PutBox(int x1, int y1, int x2, int y2, unsigned char col);
-void BlitAndWait(int cycles);
+void ShowTop10(int Blink1, int Blink2);

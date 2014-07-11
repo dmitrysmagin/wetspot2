@@ -82,6 +82,18 @@ void BlastLine(int x1, int y1, int x2, int y2, unsigned char color)
 	SDL_UnlockSurface(gamescreen);
 }
 
+void BlastPset(int x, int y, unsigned char color)
+{
+	SDL_LockSurface(gamescreen);
+
+	if(x >= 0 && x < gamescreen->w &&
+	   y >= 0 && y < gamescreen->h) {
+		*(unsigned char *)(gamescreen->pixels + y * gamescreen->w + x) = color;
+	}
+
+	SDL_UnlockSurface(gamescreen);
+}
+
 void PutBox(int x1, int y1, int x2, int y2, unsigned char col)
 {
 	BlastLine(x1, y1, x2, y1, col);

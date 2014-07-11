@@ -34,6 +34,7 @@
 #include "input.h"
 #include "sound.h"
 #include "theend.h"
+#include "hiscore.h"
 
 // SDL compliant data
 SDL_Surface *screen;
@@ -2066,6 +2067,12 @@ _reinit_area:
 
 			if(keys[SDLK_e]) {
 				TheEnd();
+				AbortFlag = TRUE;
+				break;
+			}
+
+			if(keys[SDLK_s]) {
+				ShowTop10(-1, -1);
 				AbortFlag = TRUE;
 				break;
 			}
