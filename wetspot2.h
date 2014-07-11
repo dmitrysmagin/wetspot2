@@ -137,6 +137,7 @@ extern DEATHTYPE Death[2];
 
 extern SDL_Surface *screen;
 extern SDL_Surface *gamescreen;
+extern SDL_Surface *theend;
 
 void RedrawLevel();
 void DrawObjects();
