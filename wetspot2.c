@@ -2243,6 +2243,7 @@ int main()
 #endif
 	SDL_ShowCursor(SDL_DISABLE);
 
+	PathInit();
 	SoundInit();
 
 	TimerInit();

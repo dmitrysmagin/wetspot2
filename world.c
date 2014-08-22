@@ -70,6 +70,8 @@ WORLD *LoadWorld(char *name)
 	// set fullpath
 	strcpy(wwd->fullpath, name);
 	char *p = strrchr(wwd->fullpath, '/');
+	strcpy(wwd->name, p + 1);
+	printf("World filename: %s\n", wwd->name);
 	if(p) *p = 0;
 	printf("Full path to world: %s\n", wwd->fullpath);
 

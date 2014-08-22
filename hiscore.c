@@ -38,7 +38,7 @@
 
 typedef struct {          // Record data type for the top 10
   char nam[16];           // player's name
-  long score;             // high score
+  int score;              // high score
   int area;               // area reached
   int level;              // level reached
 } RECORDTYPE;
@@ -56,33 +56,70 @@ FIREWORKTYPE FireWork[MAXFIREWORKS];
 RECORDTYPE Record[10];
 float fx[50], fy[50];
 
-void LoadRecord()
+char homepath[256] = "./";
+
+void PathInit()
 {
-	/*
-	RecordFile$ = LEFT$(DataFile$, INSTR(DataFile$, ".") - 1) + ".REC"
-	OPEN RecordFile$ FOR BINARY AS #2
-	IF LOF(2) <> 240 THEN
-	  ' Bad record file or record file does not exist; creates a new one
-	  FOR i = 0 TO 9
-	    Record(i).nam = "NOBODY"
-	    Record(i).score = 10000
-	    Record(i).area = 1
-	    Record(i).level = 1
-	  NEXT i
-	  CLOSE #2: KILL RecordFile$
-	  OPEN RecordFile$ FOR BINARY AS #2
-	  FOR i = 0 TO 9: PUT #2, , Record(i): NEXT i
-	ELSE
-	  ' Gets the records
-	  FOR i = 0 TO 9: GET #2, , Record(i): NEXT i
-	END IF
-	CLOSE #2
-	*/
+#ifdef linux
+	char *home = getenv("HOME");
+	if(home) sprintf(homepath, "%s/.wetspot2", home);
+	mkdir(homepath, 0777);
+#endif
+}
+
+
+void DefaultRecord()
+{
 	for(int i = 0; i < 10; i++) {
 		strcpy(Record[i].nam, "NOBODY");
 		Record[i].score = 10000;
 		Record[i].area = 1;
 		Record[i].level = 1;
+	}
+}
+
+void SaveRecord()
+{
+	FILE *f;
+	char filename[256];
+
+	sprintf(filename, "%s/%s.REC", homepath, wwd->name);
+
+	f = fopen(filename, "w");
+	if(f) {
+		for(int i = 0; i < 10; i++) {
+			fprintf(f, "%s %d %d %d\n",
+				   Record[i].nam,
+				   Record[i].score,
+		   		   Record[i].area,
+				   Record[i].level);
+		}
+		fclose(f);
+	}
+}
+
+void LoadRecord()
+{
+	FILE *f;
+	char filename[256];
+	char line[256];
+
+	sprintf(filename, "%s/%s.REC", homepath, wwd->name);
+
+	f = fopen(filename, "r");
+	if(f) {
+		for(int i = 0; i < 10; i++) {
+			fgets(line, sizeof(line), f);
+			sscanf(line, "%s %d %d %d", 
+				   Record[i].nam,
+				   &Record[i].score,
+		   		   &Record[i].area,
+				   &Record[i].level);
+		}
+		fclose(f);
+	} else {
+		DefaultRecord();
+		SaveRecord();
 	}
 }
 
