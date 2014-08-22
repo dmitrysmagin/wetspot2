@@ -290,6 +290,55 @@ void ShowTop10(int Blink1, int Blink2)
 	//CLS
 }
 
+// Checks if a player has made a high score
 void CheckForRecord()
 {
+	int Blink[2] = {-1, -1};
+	extern PLAYERTYPE Player[2]; // FIXME
+
+	// Opens the records file
+	LoadRecord();
+
+	// Find if players have made a high score
+	for(int i = 0; i < Game.players; i++)
+		for(int ii = 0; ii <= 9; ii++)
+			if(Player[i].score > Record[ii].score) {
+				Blink[i] = ii;
+				break;
+			}
+
+	if(Game.mode != NORMAL) {
+		Blink[0] = -1;
+		Blink[1] = -1;
+	}
+
+	// Adjusts players positions in the high score list
+	for(int i = 0; i < Game.players; i++) {
+		if(Blink[i] > -1) {
+			// Player 'i' has made an high score; gets his name for the top 10!
+			// LATER: enter player name here
+			//s$ = GetText$("PLAYER" + STR$(i + 1) + ", YOU MADE A HIT! YOUR NAME:", 16)
+
+			// Shifts the other records...
+			if(Blink[i] != 9) {
+				for(int ii = 9; ii > Blink[i]; ii--) {
+					strcpy(Record[ii].nam, Record[ii - 1].nam);
+					Record[ii].score = Record[ii - 1].score;
+					Record[ii].area = Record[ii - 1].area;
+					Record[ii].level = Record[ii - 1].level;
+				}
+			}
+			// ...and inserts the new champion
+			//Record[Blink[i]].nam = s$;
+			sprintf(Record[Blink[i]].nam, "PLAYER-%d", i + 1);
+			Record[Blink[i]].score = Player[i].score;
+			Record[Blink[i]].area =  Player[i].levelreached / 5 + 1;
+			Record[Blink[i]].level = Player[i].levelreached % 5 + 1;
+		}
+	}
+
+	SaveRecord();
+
+	// Shows the updated top 10 players list
+	ShowTop10(Blink[0], Blink[1]);
 }
