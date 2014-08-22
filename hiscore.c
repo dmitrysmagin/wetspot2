@@ -60,7 +60,7 @@ char homepath[256] = "./";
 
 void PathInit()
 {
-#ifdef linux
+#ifdef __linux__
 	char *home = getenv("HOME");
 	if(home) sprintf(homepath, "%s/.wetspot2", home);
 	mkdir(homepath, 0777);
