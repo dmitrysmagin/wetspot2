@@ -289,3 +289,7 @@ void ShowTop10(int Blink1, int Blink2)
 	SDL_SetPalette(gamescreen, SDL_LOGPAL, syspal, 0, 256);
 	//CLS
 }
+
+void CheckForRecord()
+{
+}

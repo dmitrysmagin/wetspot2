@@ -15,6 +15,7 @@
  *
  */
 
+void CheckForRecord();
 void ShowTop10(int Blink1, int Blink2);
 
 void PathInit();

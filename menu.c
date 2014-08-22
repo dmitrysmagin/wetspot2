@@ -198,7 +198,7 @@ void RunMenu(MENU *m)
 void ac_StartGame()
 {
 	PlayGame(NORMAL, 0, 0, MainMenu.sel + 1);
-	//CheckForRecord();
+	CheckForRecord();
 }
 
 // 51 available characters
@@ -277,6 +277,7 @@ void ac_EnterPassword()
 					if((i = check_pass(pass)) != -1 &&
 					   (pass[4] == '1' || pass[4] == '2')) {
 						PlayGame(NORMAL, i, 0, pass[4] & 3);
+						CheckForRecord();
 					} else {
 						PlaySound(1);
 						MPrint("INVALID PASSWORD!!", 190, 255, 252);
