@@ -371,8 +371,10 @@ void ac_ChooseWorld()
 	memset(world_info, 0, sizeof(world_info));
 
 	scan_for_wwd("./world");
-#ifdef linux
-	// LATER: scan in $HOME
+#ifdef __linux__
+	extern char homepath[256];
+
+	scan_for_wwd(homepath);
 #endif
 
 	// Now choose the world
