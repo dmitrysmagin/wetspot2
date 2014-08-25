@@ -37,6 +37,7 @@
 #include "midiplay/mid.h"
 
 Mix_Chunk *sfx[MAXSOUNDS];
+Mix_Music *music;
 void *pmidi = NULL;
 
 void PlaySound(int i)
@@ -63,25 +64,48 @@ void MidiHook(void *userdata, unsigned char *stream, int length)
 
 void LoadMIDI(char *filename)
 {
-	printf("Loading MIDI: %s\n", filename);
-
 	if(pmidi) free(pmidi);
-
 	pmidi = mid_load(filename);
+
+	// try loading .MOD
+	if (!pmidi) {
+		char modname[256], *p;
+
+		strcpy(modname, filename);
+		p = strrchr(modname, '.');
+		if (p) *(p + 2) = 'O'; // .MID => .MOD
+
+		if (music) Mix_FreeMusic(music);
+		music = Mix_LoadMUS(modname);
+
+		if (!music) {
+			printf("Mix_LoadMUS error: %s\n", Mix_GetError());
+		}
+	}
 }
 
 void PlayMIDI()
 {
 	if(pmidi) {
+		Mix_HookMusic(MidiHook, NULL);
 		mid_play(pmidi);
-		Mix_ResumeMusic();
+	} else {
+		Mix_PlayMusic(music, -1);
 	}
+
+	Mix_ResumeMusic();
 }
 
 void StopMIDI()
 {
+	if (pmidi) {
+		Mix_HookMusic(NULL, NULL);
+		mid_stop();
+	} else {
+		Mix_HaltMusic();
+	}
+
 	Mix_PauseMusic();
-	mid_stop();
 }
 
 void SoundInit()
@@ -94,11 +118,10 @@ void SoundInit()
 	atexit(SoundDeinit);
 
 	mid_init(22050, 2);
-	Mix_HookMusic(MidiHook, NULL);
 }
 
 void SoundDeinit()
 {
-	Mix_HookMusic(NULL, NULL);
 	mid_deinit();
+	if (music) Mix_FreeMusic(music);
 }
