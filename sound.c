@@ -62,19 +62,43 @@ void MidiHook(void *userdata, unsigned char *stream, int length)
 	}
 }
 
+// Take midiname and consequently change extension until the file is found
+static int find_modfile(char *modname, char *midiname)
+{
+	char *p, *ext[] = {
+		".mid", ".MID", ".mod", ".MOD", ".s3m", ".S3M", ".it", ".IT",
+		".xm", ".XM", ".ogg", ".OGG", ".mp3", "MP3", ".flac", ".FLAC"
+	};
+
+	strcpy(modname, midiname);
+
+	for (unsigned int i = 0; i < sizeof(ext) / sizeof(char *); i++) {
+		p = strrchr(modname, '.');
+		if (p) *p = 0; // cut off extension if exists
+		strcat(modname, ext[i]);
+
+		FILE *f = fopen(modname, "rb");
+		if (f) {
+			printf("Loading %s: %s\n", ext[i], modname);
+			fclose(f);
+			return i;
+		}
+	}
+
+	return -1;
+}
 void LoadMIDI(char *filename)
 {
-	if(pmidi) free(pmidi);
-	pmidi = mid_load(filename);
+	char modname[256];
 
-	// try loading .MOD
-	if (!pmidi) {
-		char modname[256], *p;
+	if(pmidi) {
+		free(pmidi);
+		pmidi = NULL;
+	}
 
-		strcpy(modname, filename);
-		p = strrchr(modname, '.');
-		if (p) *(p + 2) = 'O'; // .MID => .MOD
-
+	if (find_modfile(modname, filename) < 2) {
+		pmidi = mid_load(filename);
+	} else {
 		if (music) Mix_FreeMusic(music);
 		music = Mix_LoadMUS(modname);
 
