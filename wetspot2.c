@@ -1937,6 +1937,7 @@ void InitLevel(int a, int l) // LoadLevel
 		Player[i].frame = 2;
 		Player[i].action = 0;
 		Player[i].potion = 0;
+		Player[i].levelreached = Game.area * 5 + Game.level;
 	}
 
 	Blocked = FALSE;
