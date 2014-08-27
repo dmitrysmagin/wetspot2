@@ -1812,6 +1812,8 @@ void ShowAreaIntro()
 	SPrint(WTitle, ((320 - (strlen(WTitle) * 8)) / 2), 50, 56);
 	SPrint(PassWord, 140, 140, 56);
 
+	SDL_PurgeEvents();
+
 	float angle = 0;
 	for(int j = 0; j < 200; j++) {
 		SDL_Rect dst;
