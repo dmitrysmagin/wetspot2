@@ -412,8 +412,6 @@ void HandleObjects()
 						if(Player[ii].x % 16 == 0 && Player[ii].y % 16 == 0) {
 							int Points = 0;
 
-							if(keys[SDLK_q]) goto _case_14;
-							if(keys[SDLK_w]) goto _case_12;
 							switch(Object[i].typ) {
 							case 1 ... 5: // BONUS letters
 								PlaySound(10);
@@ -472,7 +470,6 @@ void HandleObjects()
 								Player[ii].lives++;
 								break;
 							case 12: // Level Warp
-							_case_12:
 								PlaySound(9);
 								/*for(int e = 0; e < 5; e++)
 									//PalSet 0, 63, 0, 0
@@ -522,7 +519,6 @@ void HandleObjects()
 								}
 								break;
 							case 14: // Potion bonus
-							_case_14:
 								PlaySound(9);
 								TimerOn = FALSE;
 								Game.status = -501;
@@ -2067,18 +2063,6 @@ _reinit_area:
 			}
 			CheckStatus();
 			CheckTime();
-
-			if(keys[SDLK_e]) {
-				TheEnd();
-				AbortFlag = TRUE;
-				break;
-			}
-
-			if(keys[SDLK_s]) {
-				ShowTop10(-1, -1);
-				AbortFlag = TRUE;
-				break;
-			}
 
 			// The ESC key is pressed TODO: put yes/no menu
 			if(keys[SDLK_ESCAPE]) { 
