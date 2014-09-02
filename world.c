@@ -136,7 +136,13 @@ WORLD *LoadWorld(char *name)
 		memset((wwd->area + j)->midifile, 0, sizeof((wwd->area + j)->midifile));
 		fread((wwd->area + j)->midifile, 1, 8, f);
 		rtrim((wwd->area + j)->midifile);
-		if(strlen((wwd->area + j)->midifile) > 0 && strcmp((wwd->area + j)->midifile, "none"))
+
+		// if 'none' there's no midi
+		if(!strcmp((wwd->area + j)->midifile, "none"))
+			(wwd->area + j)->midifile[0] = 0;
+
+		// append .MID
+		if(strlen((wwd->area + j)->midifile) > 0)
 			strcat((wwd->area + j)->midifile, ".MID");
 			//printf("        %s\n", (wwd->area + j)->midifile);
 

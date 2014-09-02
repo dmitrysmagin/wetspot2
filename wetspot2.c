@@ -1859,10 +1859,12 @@ void InitArea(int a) // NewArea
 	Game.textcol = (wwd->area + Game.area)->textcol;
 
 	// load midi from _full_ path
-	char midi[256];
-	sprintf(midi, "%s/%s", wwd->fullpath, (wwd->area + Game.area)->midifile);
+	if(strlen((wwd->area + Game.area)->midifile) > 0) {
+		char midi[256];
+		sprintf(midi, "%s/%s", wwd->fullpath, (wwd->area + Game.area)->midifile);
 
-	LoadMIDI(midi);
+		LoadMIDI(midi);
+	}
 }
 
 // Load a level from world data file
