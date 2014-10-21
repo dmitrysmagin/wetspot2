@@ -36,6 +36,21 @@
 #include "theend.h"
 #include "hiscore.h"
 
+// default music if level-specific is omitted
+char *default_xm[11] = {
+	"./music/cabin_fever.xm",
+	"./music/dissorint.xm",
+	"./music/drozerix_-_computer_fuck!.xm",
+	"./music/girl_from_mars.xm",
+	"./music/necromancers_castle.xm",
+	"./music/nerve_intro.xm",
+	"./music/october_chip.xm",
+	"./music/porn_industryy.xm",
+	"./music/the_dim_dungeon.xm",
+	"./music/the_radix_point.xm",
+	"./music/a_winter_kiss.xm"
+};
+
 // SDL compliant data
 SDL_Surface *screen;
 SDL_Surface *gamescreen;
@@ -1858,13 +1873,7 @@ void InitArea(int a) // NewArea
 	// init text color for each area
 	Game.textcol = (wwd->area + Game.area)->textcol;
 
-	// load midi from _full_ path
-	if(strlen((wwd->area + Game.area)->midifile) > 0) {
-		char midi[256];
-		sprintf(midi, "%s/%s", wwd->fullpath, (wwd->area + Game.area)->midifile);
-
-		LoadMIDI(midi);
-	}
+	LoadMUS(default_xm[Game.area]);
 }
 
 // Load a level from world data file
@@ -2044,7 +2053,7 @@ _reinit_area:
 
 		// Starts the game
 		AbortFlag = FALSE;
-		PlayMIDI();
+		PlayMUS();
 
 		TimerOn = TRUE;
 
@@ -2083,7 +2092,7 @@ _reinit_area:
 
 		// The game is halted
 		TimerOn = FALSE;
-		StopMIDI();
+		StopMUS();
 
 		// If the ESC key has been pressed abort the game
 		if(AbortFlag == TRUE) goto _exit;

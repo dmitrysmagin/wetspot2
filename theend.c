@@ -63,9 +63,9 @@ void TheEnd()
 	int aframe[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
 	int x[7] = {0, 0, 0, 0, 0, 0, 0};
 
-	// Loads and plays the ending song
-	LoadMIDI("./world/THEEND.MID");
-	PlayMIDI();
+	extern char *default_xm[11];
+	LoadMUS(default_xm[10]);
+	PlayMUS();
 
 	// Makes the crabs and the enemies to walk throught this tunnel
 	// The crabs are faster than the enemies, that walk all with the same speed

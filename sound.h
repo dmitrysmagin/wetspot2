@@ -24,5 +24,9 @@ void LoadMIDI(char *filename);
 void PlayMIDI();
 void StopMIDI();
 
+void LoadMUS(char *filename);
+void PlayMUS();
+void StopMUS();
+
 void SoundInit();
 void SoundDeinit();

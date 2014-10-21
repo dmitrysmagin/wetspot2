@@ -87,6 +87,7 @@ static int find_modfile(char *modname, char *midiname)
 
 	return -1;
 }
+
 void LoadMIDI(char *filename)
 {
 	char modname[256];
@@ -129,6 +130,28 @@ void StopMIDI()
 		Mix_HaltMusic();
 	}
 
+	Mix_PauseMusic();
+}
+
+void LoadMUS(char *filename)
+{
+	if (music) Mix_FreeMusic(music);
+	music = Mix_LoadMUS(filename);
+
+	if (!music) {
+		printf("Mix_LoadMUS error: %s\n", Mix_GetError());
+	}
+}
+
+void PlayMUS()
+{
+	Mix_PlayMusic(music, -1);
+	Mix_ResumeMusic();
+}
+
+void StopMUS()
+{
+	Mix_HaltMusic();
 	Mix_PauseMusic();
 }
 
