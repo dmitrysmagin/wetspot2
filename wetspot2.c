@@ -1143,7 +1143,25 @@ void MoveEnemies()
     
 			Enemy[i].x += Enemy[i].ox;
 			Enemy[i].y += Enemy[i].oy;
-			if(Enemy[i].y > 199) Enemy[i].y = -15;
+
+			if(Enemy[i].y > 199) {
+				Enemy[i].y = -15;
+
+				if(Enemy[i].action == TRUE) {
+					int row;
+					int space = FALSE;
+					for(row = 0; row < 10; row++) {
+						if(cell[1 + row][Enemy[i].x / 16].st == 0) {
+							space = TRUE;
+							break;
+						}
+					}
+					if(space == FALSE)
+					{
+						Enemy[i].x += (Enemy[i].x > 160 ? -16 : 16);
+					}
+				}
+			}
 
 			if(Enemy[i].action == FALSE) {
 				if(Enemy[i].oy <= abs(Enemy[i].ox) * 2) Enemy[i].oy++;
