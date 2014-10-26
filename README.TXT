@@ -1,21 +1,21 @@
+                            WETSPOT II - SDL port
 
- This is an original README.TXT from dos, only e-mails and site are corrected
-     Most of information is not relevant for modern platforms anymore
-------------------------------------------------------------------------------
-                            
-                        WETSPOT II - README.TXT file
+                 Originally by Enhanced Creations 1997-98
+              aka Angelo Mottola - a dot mottola at gmail dot com
 
-                 Version 1.3 - by Enhanced Creations 1997-98
+            Re-implemented in C/SDL by Dmitry Smagin in 2013-2014
+                   dmitry dot s dot smagin at gmail dot com
 
-             Suggestions, hints or bug reports are to be sent to
-                
-               Angelo Mottola - a dot mottola at gmail dot com
+                    Music by Drozerix [at] gmail [dot] com 
 
      For other informations on this game, extra stuff and more, visit the
 Enhanced Creations home, the QuickBasic Enhanced Programming Page located at:
 
                 http://reocities.com/SiliconValley/Lakes/7303/
                           http://www.ecplusplus.com/
+
+                Source code of this port can be found here:
+                 https://github.com/dmitrysmagin/wetspot2
 
 
 TABLE OF CONTENTS ___________________________________________________________
@@ -24,17 +24,10 @@ TABLE OF CONTENTS ___________________________________________________________
 2 - Playing WetSpot 2
  2.1 - Your goal
  2.1 - The game menu
- 2.3 - Controls
- 2.4 - External worlds
-3 - Program informations
- 3.1 - How this was possible in QB
- 3.2 - Credits
- 3.3 - Program history
- 3.4 - Final words
+ 2.3 - External worlds
 APPENDIX A - Default keys
-APPENDIX B - Error messages
-APPENDIX C - Known bugs and problem resolutions
-APPENDIX D - Hints and cheat codes
+APPENDIX B - Hints
+APPENDIX C - Credits
 _____________________________________________________________________________
 
 
@@ -101,73 +94,33 @@ game with him? Well, forget it! WetSpot 2 finally has a decent two players
 mode! When a player dies, the other can continue playing, and he (if other
 lives are available) appears again when the other ends the level or dies.
 
-
 2.2 - The game menu
 
 Once the small intro ends, a main menu appears on the screen. The selection
 bar can be moved using the arrow keys, and <ENTER> selects the highlighted
 option. Here follows a brief description of the available options:
 
-þ START ONE PLAYER GAME
+* START ONE PLAYER GAME
         Starts the game in one player mode from the beginning
-þ START TWO PLAYERS GAME
+* START TWO PLAYERS GAME
         Starts the game in two players mode from the beginning
-þ ENTER PASSWORD
+* ENTER PASSWORD
         Allows you to enter a password to an area of the current world. See
         above for details on how the password system works.
-þ LOAD EXTERNAL WORLD
+* LOAD EXTERNAL WORLD
         Allows you to change the current world. For details see section
         2.4 - External worlds.
-þ OPTIONS
-        Brings you to the options menu. Here you can change the players
-        control methods, the sound/music volume, and even customize the keys
-        for the keyboard control method.
-þ SHOW CREDITS
+* SHOW CREDITS
         Shows the credits of the game
-þ QUIT
+* QUIT
         Exits the game
 
 If you don't press any key for a while, a demo of the game will begin,
 followed by the credits and the top ten. During this demo, as well as during
-the credits show and the top ten, press the <ENTER> key or the <ESC> key to
+the credits show and the top ten, press the <START> key or the <SELECT> key to
 return back to the menu.
 
-
-2.3 - Controls
-
-Each player has its control method, and this can be set in the options menu.
-There are up to 4 basic input devices, depending on the presence of joysticks:
-- KEYBOARD 1
-- KEYBOARD 2
-- JOYSTICK 1 (where available)
-- JOYSTICK 2 (where available)
-Each of these can be assigned to a player; let's see them in details.
-
-KEYBOARD 1 and KEYBOARD 2:  when no joysticks are available, the keyboard
-        remains the only way to control your crabs. The way this worked in
-        WetSpot is the past. Now to go in a direction, you must hold down
-        a key, and this means that simultaneous keypresses are allowed.
-        The default keys (see APPENDIX A - Default keys) can be changed
-        with the "CUSTOMIZE KEYS" option in the options menu.
-JOYSTICK 1 and JOYSTICK 2:  these are automatically detected when available.
-        The best choice is a joypad, but a joystick will fit as well. In this
-        last case, you'll need to set its resolution in the SETUP program;
-        lower resolutions mean that the joystick is really sensible, so a
-        default value should be about 20-30.
-
-While playing, press <P> for pause (press <P> again to resume), <ESC> to
-abort the current game ,<F1> to show the framerate and <F12> to save a
-screenshot in the BMP format. The file will be like "SHOTxxxx.BMP", where
-"xxxx" is the number of the screenshot. Each time the game is executed, this
-number is reset to 0, and it increases every time you hit the <F12> key. Pay
-attention about overwritings!
-
-As in all the games of this kind, there are some cheat codes that have
-particular effects. If you really want to know them, take a look at the
-APPENDIX D - Hints and cheat codes.
-
-
-2.4 - External worlds
+2.3 - External worlds
 
 If you're reading all this text file from the beginning, you should have
 noticed I've said that the world can be changed. As said, a world is a
@@ -184,358 +137,24 @@ the WetSpot 2 world editor; you can download it from my web page. Here you'll
 also find a collection of worlds made by other people, for your pleasure.
 Once you've made a world, send me it via E-Mail, and I'll publish it there!
 
-
-=============================================================================
-3 - PROGRAM INFORMATIONS
-=============================================================================
-
-3.1 - How this was possible in QB
-
-QuickBasic 4.5 of course. If you're a QB programmer, you'll surely find this
-section interesting. Here I'll try to explain the basic concepts used to
-create the game; first of all the multiple module programming. Most of you
-think QB can't handle big programs, but this is the counter evidence...
-Just take in mind that QB can't handle modules larger than 64 Kbytes, so you
-have to split your source into different modules. Here an include file is
-really recommended to declare the functions and the common variables shared
-between the modules.
-The second great feature of WetSpot 2 is the use of EMS memory. Without it,
-the game would not be possible; infact it's used to store the sprites, the
-level background and even the sounds. I strongly suggest you to learn using
-EMS, also because of the low memory capabilities of QB.
-I've used the EMS memory together with the famous Blast! Library, and only
-this allows a really flickerless graphics... Just look at this library and
-the EMS routines (can be easily found over the net, and they're also up on my
-page) to understand what I'm talking about.
-To play the sounds (WAVs) I used the DMAplay routine, for the musics the
-QMIDI routines. Contact their authors for details on how to add them to your
-own programs (see the section 3.2 - Credits)
-Do you think this is the best QB game ever written? The best thing you can
-do for me is to share WetSpot 2 will all the people you know. Anyway, if you
-feel generous, you can make a free donation; contact me!
-
-
-3.2 - Credits
-
-WetSpot 2 is a game by Enhanced Creations.
-Enhanced Creations is Angelo Mottola only. Here follows the credits list:
-
-CONCEPT                         Angelo Mottola (angelillo@geocities.com)
-CODING                          Angelo Mottola (angelillo@geocities.com)
-SPRITE GRAPHICS                 Angelo Mottola (angelillo@geocities.com)
-SPRITES GET AND PUT ROUTINES    Petter Holmberg (petter.holmberg@usa.net)
-BLAST! LIBRARY                  Andrew L. Ayers (andrewa@indirect.com)
-KEYBOARD HANDLING ROUTINE       Milo Sedlacek (sedlacek@execulink.com
-JOYSTICK HANDLING ROUTINE       Angelo Mottola (angelillo@geocities.com)
-DMAPLAY ROUTINE                 Toshihiro Horie (horie@ocf.berkeley.edu)
-QMIDI LIBRARY                   Jesse Dorland (jessedorland@hotmail.com)
-BMP FAST SAVING ROUTINE         Thomas Nyberg (thomas.nyberg@usa.net)
-
-Special thanks to
-
-PETTER HOLMBERG for the help he gave to me: the get and put assembly routines
-        he made for this game, the making of area 7 and for the beta testing.
-        Without your support the game would not be the same!
-INGMAR NEUWIRTH for help, beta testing and hints about the game. Your interest
-        in my programming was a great support for me.
-
-Thanks to
-
-MILO SEDLACEK (A.K.A. GRADIUS) for sharing with me his keyboard knowledge.
-JESSE DORLAND for the MIDI routines; they're really great!
-WALTER ARRIGHETTI for beta testing and the encouragements he gave to me in the
-        making of this game.
-
-Also thanks to all the people who sent me messages about WetSpot. Without your
-support, this sequel may not even exist.
-
-
-3.3 - Program history
-
-The WetSpot 2 project was started on september 1997. Here follows a brief
-history of the program, from the first alpha to the final release.
-
-Alpha 01 - 5th Dec 1997:  This first alpha of WetSpot 2 has full players
-                control, but no bonuses nor collisions detection with enemies.
-
-Alpha 02 - 10th Dec 1997: Added normal bonuses and collisions
-
-Alpha 03 - 12th Dec 1997: The game engine is almost complete; speed problem
-
-Alpha 04 - 14th Dec 1997: Added a better delay control, joystick input (though
-                this slows down the entire game, because standard QB joystick
-                functions are used)
-
-Alpha 05 - 27th Dec 1997: Standard QB joystick input routines no more used;
-                new routines works better using INP and OUT. WetSpot 2 now
-                has a demo!
-
-Alpha 06 - 29th Dec 1997: Main menu added at last. Now the game is nearly all
-                configurable, including players control selection and keys
-                customization.
-
-Alpha 07 - 3rd Jan 1998:  Great day! Main module splitted into two modules to
-                avoid compiling "out of program memory" error. Now all works
-                ok, except that the compiled version of the game runs too fast
-                on my K6-200 - even with the speed auto detection routine...
-
-Alpha 08 - 8th Jan 1998:  Speed problem solved again. As I try to add MOD
-                music and WAV sound effects using the BWSB library (as it was
-                planned), the game runs very slow on my K6!! So I have to
-                find other ways to have musics and sound effects...
-
-Alpha 09 - 10th Jan 1998: I've added the famous DMAPlay routines to play
-                WAV effects directly from EMS. I've also studied some way to
-                handle MIDIs, which as by now I plan to use instead of MODs.
-                I'm really happy because this is the first alpha to have
-                sound effects playing correctly! Minor optimizations to the
-                game engine itself.
-
-Alpha 10 - 27th Jan 1998: Ending text added, as well as more sound effects.
-                Also, the "Enter password" option is now active. The code has
-                been optimized a bit more, expecially keyboard player input.
-                I still need to create the standard levels; as by now only
-                the first 15 are ready...
-
-Alpha 11 - 4th Feb 1998: No new areas, but now external worlds can be loaded
-                instead of the standard one. The code is now splitted into
-                three modules, because it's really huge!
-
-Alpha 12 - 25th Feb 1998: Great changes! Two new areas, game over message and
-                a lot of bugs fixed. Finally Enhanced Creations has a logo,
-                and it looks really great! Also added a small intro, and
-                improved the two players mode: now when one of the player
-                dies, the other one can continue playing...
-                Cheat codes are available in WetSpot 2, find them!
-
-Alpha 13 - 4th Mar 1998: Musics at last! The QMIDI routines are really great,
-                though I had some low memory problems... The game finally has
-                its ending scene (looks great!), and a lot of other small bugs
-                have been fixed. This will be the last alpha version, until
-                the first beta is out!
-
-Beta 1 - 12th Mar 1998: The first beta is out! The standard world is complete,
-                the game looks almost complete and only a few bugs have to be
-                fixed... I still haven't found any good sounds for the player
-                that dies, the destruction of a block, the earthquake and the
-                lightning; I also have to find a music for the main menu, then
-                the game will be completed!
-
-Beta 2 - 17th Mar 1998: Lots of hidden bugs fixed, that was really hard! The
-                two players mode was giving me some problems, but now I hope
-                all to be ok. I've changed the initialization routine, so now
-                the game is loaded really faster... I still need some more
-                sound effects!
-
-Final 1.0 - 21st Mar 1998: Since no more bugs were found and I can't wait no
-                longer to release the game, here comes the final version.
-                Not all the wanted sound effects were found, nor the menu
-                music was added; anyway the game works perfectly (I hope!)
-
-Final 1.1 - 2nd Apr 1998: Minor bugs fixed; now all seems to be ok...
-
-Final 1.2 - 15th Jun 1998: Other minor bugs fixed, added a special extra
-                bonus (find it by yourself!) and direct keyboard input when
-                entering passwords and highscore names.
-
-Final 1.3 - 27th Jun 1998: Since version 1.2 had some strange bugs, here comes
-                version 1.3; now all should be fixed, and I've also added a
-                message that warns the user if a specified music MIDI file is
-                too big to be played (world makers should understand!), plus
-                new cheat codes...
-
-3.4 - Final words
-
-Well, what a hard work! The making of WetSpot 2 has took half a year, and I
-hope you like it as I do. I also hope that you can make worlds for this game
-with the editor, I'll be really glad to put them up on my web site.
-What else to say? Go now, have fun with WetSpot 2, and excuse my bad english!
-
-
 =============================================================================
 APPENDIX A - DEFAULT KEYS
 =============================================================================
 
-The first time you'll run the game and every time you select the "RESET KEYS
-TO DEFAULT" option in the SETUP program, the keys will be reset as:
+When in 1 PLAYER MODE use D-PAD to control directions and A to push bricks.
 
-KEYBOARD 1 -    Up:     <up arrow>
-                Down:   <down arrow>
-                Left:   <left arrow>
-                Right:  <right arrow>
-                Fire:   <enter>
+When in 2 PLAYERS MODE, things are little complicated:
 
-KEYBOARD 2 -    Up:     <W>
-                Down:   <S>
-                Left:   <A>
-                Right:  <D>
-                Fire:   <tab>
-
-These key settings can be changed with the "CUSTOMIZE KEYS" option in the
-"OPTIONS" menu of the game; the new keys configuration will be saved to the
-WETSPOT2.CFG file as you quit, and will be restored once you start W2 again.
-
+   PLAYER 1       PLAYER 2
+   ===========    =========
+   D-PAD UP           Y      - up
+   D-PAD DOWN         B      - down
+   D-PAD LEFT         X      - left
+   D_PAD RIGHT        A      - right
+   L SHIFT         R SHIFT   - fire
 
 =============================================================================
-APPENDIX B - ERROR MESSAGES
-=============================================================================
-
-WetSpot 2 has several hardware and software identification routines, which
-should provide a safe execution. If you get an error message while running
-the game, refer to this table; maybe here you'll find the solution to your
-problem.
-
-Message: "A game data file is missing, program aborted. Please install again."
-        þ Cause:  WetSpot 2 can't find a required game data file in the
-                current directory.
-        > Solution:  Be sure to have all the game files in the same directory
-                and to run the game from there, otherwise you'll have to
-                install again.
-
-Message: "There was a general disk error while attempting to access a game
-        file; see README.TXT for details."
-        þ Cause:  This error may occur in different situations: the most
-                usual one is that you're running the game from a write
-                protected diskette, otherwise there's some problem with
-                your device (the disk can be full!)
-        > Solution:  WetSpot 2 must have free access to the disk; you must
-                toggle the write protection tag or free some space on your
-                disk, otherwise you'll have to install the game again.
-
-Message: "Not enough memory to run WetSpot 2; see README.TXT for game
-        requirements."
-        þ Cause:  you do not have enough free base memory to run the program;
-                this error should also occur during the game.
-        > Solution:  Free enough base memory and load WetSpot 2 again. See
-                section "1.2 - Game requirements" for details.
-
-Message: "This program requires 1344 Kbytes of free EMS memory to run!"
-        þ Cause 1:  You don't have an extended memory manager (EMM) loaded in
-                memory.
-        þ Cause 2:  You have the EMM, but you haven't free EMS handles or
-                enough free EMS memory to run the game.
-        > Solution:  Take a look at section "1.3 - Installing the game" of
-                this manual and follow the instructions.
-
-Message: "Game configuration not set, please run SETUP first."
-        þ Cause:  WetSpot 2 can't find the configuration file (WETSPOT2.CFG)
-                in the current directory.
-        > Solution:  Run the game from its directory or execute the SETUP
-                program saving your settings.
-
-Message: "Bad game settings, please run SETUP again."
-        þ Cause:  This error should never come out; it means that the
-                configuration file is corrupted, probably because it was
-                manually edited, or because the game was brought to another
-                computer with a different hardware.
-        > Solution:  Run the SETUP program again.
-
-Message: "Unable to detect the SBMIDI driver; load it or disable musics in
-        SETUP."
-        þ Cause:  You turned on the musics in the SETUP program and tried to
-                run the game without loading the SBMIDI driver.
-        > Solution:  Load the driver before running the game or disable the
-                musics in the SETUP program.
-
-Message: "Int 80h is not being used by SBMIDI; free it or disable musics in
-        SETUP."
-        þ Cause:  You have interrupt 80h already occupied by a program that
-                is not the SBMIDI driver. It is possible that you have loaded
-                such a driver, but into another interrupt.
-        > Solution:  WetSpot 2 requires the SBMIDI driver to be loaded into
-                interrupt 80h, so you must free it and then load the driver
-                again, assuring that it's loaded into the right int. In case
-                you'll not be able to do so, you'll have to disable the musics
-                in the SETUP program.
-
-Message: "Failed to reset sound card DSP, run SETUP again."
-        þ Cause:  WetSpot 2 was unable to reset the DSP of your sound card,
-                or a sound card was not found on your system.
-        > Solution:  Run the SETUP program again.
-
-If you get an unexpected error message, please contact me and tell me how this
-has occured; this will help me a lot in the game debugging. See also the next
-appendix for the known bugs list.
-
-
-=============================================================================
-APPENDIX C - KNOWN BUGS AND PROBLEM RESOLUTIONS
-=============================================================================
-
-This game has been tested a lot, but some errors could occur. If it happens,
-try looking at the APPENDIX B - Error messages, and then, if your error is
-unavoidable, this section.
-Here follows a list of the few known bugs and their possible solutions:
-
-Problem:  The game crashes during initialization.
-        þ Cause:  Probably it's a problem with your expanded memory manager;
-                W2 has an EMS detection routine, but it can fail and if the
-                EMM isn't loaded, the result would be this.
-        > Solution:  Load an expanded memory manager at the start up of your
-                computer. See section "1.3 - Installing the game" for details.
-
-Problem:  The game runs, but I can't hear any music coming out of my speakers,
-        though I think I've successfully executed the SETUP program.
-        þ Cause:  You've not run correctly the SETUP program.
-        > Solution:  Exit the game and run SETUP, then execute W2 again.
-
-Problem:  I can see small flashes into the firework animations on the Top 10
-        screen.
-        þ Cause:  This is a small bug I still haven't fixed...
-        > Solution:  This error should let you play without problems.
-
-Problem:  My girlfriend hates me.
-        þ Cause:  ??
-        > Solution:  Let her hate you even more...
-
-Problem:  Suddenly the game ended with a brief error message while I was
-        playing (any world or area).
-        þ Cause:  Unknown problem.
-        > Solution:  Please let me know exactly how this error occured, so I
-                can fix it!
-
-Problem:  While playing with my joystick, the player moves almost randomly.
-        þ Cause:  Your joystick is too sensible.
-        > Solution:  Adjust the joystick resolution into the SETUP program.
-                See section "2.3 - Controls" for details.
-
-Problem:  The game crashed and before this happened I heard strange noises
-        coming out of my speakers.
-        þ Cause:  I've had this problem a few times, and I think it's due to
-                a bad EMS or DMA channel initialization.
-        > Solution:  If you hear strange noises, exit the game before it's
-                too late, then start W2 again; I've never heard the noises
-                after running the game twice.
-
-Problem:  I hear the musics, but I don't hear any sounds...
-        þ Cause:  You have bad sound settings.
-        > Solution:  Run SETUP again and change your sound card settings.
-
-Problem:  This game really sucks!
-        þ Cause:  Me.
-        > Solution:  Play it!
-
-Problem:  The game crashed and the music was still playing...
-        þ Cause:  This error may occur if you have an old sound card; I've
-                heard that SB 2.0 gives this problem, and this is probably
-                due to the DMA transfer before playing a sound.
-        > Solution:  I'll ask to the author of the last version of DMAplay
-                (Toshihiro Horie) to solve this...
-
-Problem:  The sounds are distorted when running from Windows 95.
-        þ Cause:  Bill Gates.
-        > Solution:  Restart the game or load it while in plain DOS mode.
-
-Problem:  The game still crashes while playing a sound!
-        þ Cause:  Unknown.
-        > Solution:  I'm not able to answer your question; you should try
-                asking to Toshihiro Horie, because he's the author of the
-                DMAplay routine I used to play sounds. His E-Mail address can
-                be found in section "3.2 - Credits" of this manual.
-
-
-=============================================================================
-APPENDIX D - HINTS
+APPENDIX B - HINTS
 =============================================================================
 
 WetSpot 2 has 7 different kinds of enemies: each of them can attack you in
@@ -571,15 +190,13 @@ your last one. Don't forget these words!
 If you're really in trouble and you can't do a level, you can use a cheat
 code. Here is a list of the cheat code, so
 
-**** DON'T READ THE FOLLOWING TEXT IF YOU WANT TO PLAY THE GAME AS IS... ****
+=============================================================================
+APPENDIX C - CREDITS
+=============================================================================
 
-During the game, press:
-CTRL-ALT-F5     Player one gains an extra life
-CTRL-ALT-F6     Player two gains an extra life (two players mode only)
-CTRL-ALT-F7     Freezes all the enemies (hit again to resume them)
-CTRL-ALT-F8     All the enemies are killed
-CTRL-ALT-F9     You automatically pass the current area
-CTRL-ALT-F10    Shows the end of the game
+Angelo Mottola - artwork and original coding in QB
+Dmitry Smagin  - porting to C/SDL
+Drozerix       - pack of nice musics
 
 =============================================================================
 
