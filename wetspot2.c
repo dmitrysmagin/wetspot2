@@ -2237,7 +2237,7 @@ int main()
 #ifdef SCALE_SCREEN
 	screen = SDL_SetVideoMode(640, 400, 32, SDL_SWSURFACE);
 #else
-	screen = SDL_SetVideoMode(320, 240, 16, SDL_SWSURFACE);
+	screen = SDL_SetVideoMode(320, 240, 16, SDL_HWSURFACE | SDL_DOUBLEBUF);
 #endif
 	SDL_ShowCursor(SDL_DISABLE);
 
