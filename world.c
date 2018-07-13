@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 #include "wetspot2.h"
 #include "font.h"
@@ -130,7 +130,7 @@ WORLD *LoadWorld(char *name)
 
 		fread((wwd->area + j)->sprites->pixels, 1, 1280, f);
 
-		SDL_SetPalette((wwd->area + j)->sprites, SDL_LOGPAL, (wwd->area + j)->pal, 240, 16);
+		SDL_SetPaletteColors((wwd->area + j)->sprites->format->palette, (wwd->area + j)->pal, 240, 16);
 
 		// midi filename without extension
 		memset((wwd->area + j)->midifile, 0, sizeof((wwd->area + j)->midifile));

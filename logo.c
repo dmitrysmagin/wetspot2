@@ -19,8 +19,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_mixer.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 #include "wetspot2.h"
 #include "font.h"
@@ -83,7 +83,7 @@ void Logo()
 		logopal[i + 64].b = 0;
 	}
 
-	SDL_SetPalette(gamescreen, SDL_LOGPAL, logopal, 0, 128);
+	SDL_SetPaletteColors(gamescreen->format->palette, logopal, 0, 128);
 
 	// Animate the spotlights
 	for(int i = -30; i <= 382; i += 3) {
@@ -102,7 +102,7 @@ void Logo()
 	// Flash the screen by setting a black palette
 	memset(blackpal, 0, sizeof(blackpal));
 
-	SDL_SetPalette(gamescreen, SDL_LOGPAL, blackpal, 0, 256);
+	SDL_SetPaletteColors(gamescreen->format->palette, blackpal, 0, 256);
 	SDL_BlitSurface(logo, NULL, gamescreen, NULL);
 
 	// Fade the colors to their original hues
@@ -113,7 +113,7 @@ void Logo()
 			if(blackpal[i].b < logopal[i].b) blackpal[i].b += 4;
 		}
 
-		SDL_SetPalette(gamescreen, SDL_LOGPAL, blackpal, 0, 256);
+		SDL_SetPaletteColors(gamescreen->format->palette, blackpal, 0, 256);
 		SDL_BlitSurface(logo, NULL, gamescreen, NULL);
 
 		BlitAndWait(1);
@@ -137,7 +137,7 @@ void Intro()
 	};
 
 	// Restore game palette
-	SDL_SetPalette(gamescreen, SDL_LOGPAL, gamepal, 0, 256);
+	SDL_SetPaletteColors(gamescreen->format->palette, gamepal, 0, 256);
 
 	// Display the three intro messages
 	for(int i = 0; i < 3; i++) {

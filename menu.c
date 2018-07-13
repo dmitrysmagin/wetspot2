@@ -25,8 +25,8 @@
 #include <unistd.h>
 #include <dirent.h>
 
-#include <SDL/SDL.h>
-#include <SDL/SDL_mixer.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 #include "wetspot2.h"
 #include "font.h"
@@ -489,7 +489,7 @@ void ac_GoBack()
 void Menu()
 {
 	// Restore system palette
-	SDL_SetPalette(gamescreen, SDL_LOGPAL, syspal, 0, 256);
+	SDL_SetPaletteColors(gamescreen->format->palette, syspal, 0, 256);
 
 	RunMenu(&MainMenu);
 }

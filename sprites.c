@@ -19,8 +19,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_rotozoom.h>
+#include <SDL.h>
+#include <SDL2_rotozoom.h>
 
 #include "wetspot2.h"
 #include "sprites.h"
@@ -132,7 +132,13 @@ void BlitAndWait(int cycles)
 #else
 	SDL_BlitSurface(gamescreen, NULL, screen, &dst);
 #endif
-	SDL_Flip(screen);
+
+/*	SDL_Flip(screen);*/
+	SDL_UpdateTexture(screenTexture, NULL, screen->pixels, screen->pitch);
+	SDL_RenderClear(renderer);
+	SDL_RenderCopy(renderer, screenTexture, NULL, NULL);
+	SDL_RenderPresent(renderer);
+	
 	for(int j = 0; j < cycles; j++) {
 		SDL_PumpEvents();
 		Wait();

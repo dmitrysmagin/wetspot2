@@ -20,8 +20,8 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_mixer.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 #include "wetspot2.h"
 #include "font.h"
@@ -262,7 +262,7 @@ void ShowTop10(int Blink1, int Blink2)
 	//Fade 1
 
 	// Set the default game palette
-	SDL_SetPalette(gamescreen, SDL_LOGPAL, gamepal, 0, 256);
+	SDL_SetPaletteColors(gamescreen->format->palette, gamepal, 0, 256);
 
 	// Opens the records file
 	LoadRecord();
@@ -286,7 +286,7 @@ void ShowTop10(int Blink1, int Blink2)
 
 	//Fade 0
 	// Restores menu palette
-	SDL_SetPalette(gamescreen, SDL_LOGPAL, syspal, 0, 256);
+	SDL_SetPaletteColors(gamescreen->format->palette, syspal, 0, 256);
 	//CLS
 }
 

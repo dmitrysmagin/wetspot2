@@ -20,8 +20,8 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_mixer.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 #include "wetspot2.h"
 #include "font.h"
@@ -102,7 +102,7 @@ void CheckTime() // TimePass:
 void TimerInit()
 {
 	// make it tick every second
-	timer_id = SDL_AddTimer(1000, (SDL_NewTimerCallback)&TimePass, NULL);
+	timer_id = SDL_AddTimer(1000, (SDL_TimerCallback)&TimePass, NULL);
 }
 
 void TimerDeinit()

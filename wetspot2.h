@@ -135,6 +135,8 @@ extern Uint8 *keys;
 extern GAMETYPE Game;
 extern DEATHTYPE Death[2];
 
+extern SDL_Renderer *renderer;
+extern SDL_Texture *screenTexture;
 extern SDL_Surface *screen;
 extern SDL_Surface *gamescreen;
 extern SDL_Surface *theend;

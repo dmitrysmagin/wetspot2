@@ -20,8 +20,8 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_mixer.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 #include "wetspot2.h"
 #include "font.h"
@@ -42,7 +42,9 @@ void *pmidi = NULL;
 
 void PlaySound(int i)
 {
-	Mix_PlayChannel(-1, sfx[i], 0);
+	if(Mix_PlayChannel(-1, sfx[i], 0) == -1) {
+		printf("Error playing sample %i.\n", i);
+	}
 }
 
 void MidiHook(void *userdata, unsigned char *stream, int length)
@@ -135,13 +137,13 @@ void StopMIDI()
 void SoundInit()
 {
 	Mix_Init(0);
-	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
 
 	atexit(Mix_Quit);
 	atexit(Mix_CloseAudio);
 	atexit(SoundDeinit);
 
-	mid_init(22050, 2);
+	mid_init(44100, 2);
 }
 
 void SoundDeinit()
