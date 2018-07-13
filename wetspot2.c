@@ -20,8 +20,8 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_mixer.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 #include "wetspot2.h"
 #include "font.h"
@@ -36,7 +36,30 @@
 #include "theend.h"
 #include "hiscore.h"
 
+#ifdef SCALE_SCREEN
+#define SCREEN_WIDTH	640
+#define SCREEN_HEIGHT	480
+#define SCREEN_DEPTH	32
+#define R_MASK		0x00FF0000
+#define G_MASK		0x0000FF00
+#define B_MASK		0x000000FF
+#define A_MASK		0xFF000000
+#define PIXEL_FORMAT	SDL_PIXELFORMAT_ARGB8888
+#else
+#define SCREEN_WIDTH	320
+#define SCREEN_HEIGHT	240
+#define SCREEN_DEPTH	16
+#define R_MASK		0x0000F800
+#define G_MASK		0x000007E0
+#define B_MASK		0x0000001F
+#define A_MASK		0x00000000
+#define PIXEL_FORMAT	SDL_PIXELFORMAT_RGB565
+#endif
+
 // SDL compliant data
+SDL_Window *window;
+SDL_Renderer *renderer;
+SDL_Texture *screenTexture;
 SDL_Surface *screen;
 SDL_Surface *gamescreen;
 SDL_Surface *theend;
@@ -167,16 +190,16 @@ void CheckStatus()
 	if(Game.mode == DEMO) return;
 
 	// the game is paused
-	if(keys[SDLK_RETURN]) {
-		keys[SDLK_RETURN] = 0;
+	if(keys[SDL_SCANCODE_RETURN]) {
+		keys[SDL_SCANCODE_RETURN] = 0;
 		TimerOn = FALSE;
 		PlaySound(1);
 		DrawObjects();
 		SPrint("PAUSE!", 136, 96, Game.textcol);
 		do {
 			BlitAndWait(2);
-		} while(!keys[SDLK_RETURN]);
-		keys[SDLK_RETURN] = 0;
+		} while(!keys[SDL_SCANCODE_RETURN]);
+		keys[SDL_SCANCODE_RETURN] = 0;
 		if(Game.monsters > 0) TimerOn = TRUE;
 	}
 }
@@ -1839,8 +1862,8 @@ void ShowAreaIntro()
 void InitArea(int a) // NewArea
 {
 	// Move tiles from area to sprites
-	SDL_SetPalette(sprites, SDL_LOGPAL, (wwd->area + a)->pal, 240, 16);
-	SDL_SetPalette(gamescreen, SDL_LOGPAL, (wwd->area + a)->pal, 240, 16);
+	SDL_SetPaletteColors(sprites->format->palette, (wwd->area + a)->pal, 240, 16);
+	SDL_SetPaletteColors(gamescreen->format->palette, (wwd->area + a)->pal, 240, 16);
 	for(int i = 0; i < 5; i++) {
 		SDL_Rect src, dst;
 
@@ -1967,15 +1990,15 @@ int AbortGameYN()
 
 	TimerOn = FALSE;
 	PlaySound(14);
-	keys[SDLK_ESCAPE] = 0;
+	keys[SDL_SCANCODE_ESCAPE] = 0;
 
 	while(1) {
-		if(keys[SDLK_LEFT]) choice = 0;
-		else if(keys[SDLK_RIGHT]) choice = 1;
-		else if(keys[SDLK_ESCAPE]) {
+		if(keys[SDL_SCANCODE_LEFT]) choice = 0;
+		else if(keys[SDL_SCANCODE_RIGHT]) choice = 1;
+		else if(keys[SDL_SCANCODE_ESCAPE]) {
 			result = FALSE;
 			break;
-		} else if(keys[SDLK_LCTRL] || keys[SDLK_RETURN]) {
+		} else if(keys[SDL_SCANCODE_LCTRL] || keys[SDL_SCANCODE_RETURN]) {
 			result = (choice == 0 ? TRUE : FALSE);
 			break;
 		}
@@ -1993,7 +2016,7 @@ int AbortGameYN()
 		BlitAndWait(2);
 	}
 
-	keys[SDLK_ESCAPE] = 0;
+	keys[SDL_SCANCODE_ESCAPE] = 0;
 	if(Game.monsters > 0) TimerOn = TRUE;
 	return result;
 }
@@ -2009,7 +2032,7 @@ void PlayGame(int mode, int area, int level, int players)
 	Game.players = players;
 
 	// Set the default game palette
-	SDL_SetPalette(gamescreen, SDL_LOGPAL, gamepal, 0, 256);
+	SDL_SetPaletteColors(gamescreen->format->palette, gamepal, 0, 256);
 	SDL_FillRect(gamescreen, NULL, 0);
 
 	// Initialize players variables
@@ -2067,7 +2090,7 @@ _reinit_area:
 			CheckTime();
 
 			// The ESC key is pressed TODO: put yes/no menu
-			if(keys[SDLK_ESCAPE]) { 
+			if(keys[SDL_SCANCODE_ESCAPE]) { 
 				if(Game.mode == DEMO) {
 					AbortFlag = TRUE;
 					break;
@@ -2173,7 +2196,7 @@ _reinit_area:
 	}
 _exit:
 	SDL_PurgeEvents();
-	SDL_SetPalette(gamescreen, SDL_LOGPAL, syspal, 0, 256);
+	SDL_SetPaletteColors(gamescreen->format->palette, syspal, 0, 256);
 }
 
 void InitGame()
@@ -2190,7 +2213,7 @@ void InitGame()
 
 	// and initialize surfaces
 	gamescreen = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 200, 8, 0, 0, 0, 0);
-	SDL_SetPalette(gamescreen, SDL_LOGPAL, gamepal, 0, 256);
+	SDL_SetPaletteColors(gamescreen->format->palette, gamepal, 0, 256);
 
 	// load sprites and screens
 	logo = SDL_LoadBMP("data/logo.bmp");
@@ -2198,14 +2221,20 @@ void InitGame()
 	theend = SDL_LoadBMP("data/theend.bmp");
 	sprites = SDL_LoadBMP("data/sprites.bmp");
 
-	SDL_SetColorKey(sprites, SDL_SRCCOLORKEY, *(char *)(sprites->pixels));
+	SDL_SetColorKey(sprites, SDL_TRUE, *(char *)(sprites->pixels));
 
 	// load sounds
 	for(int i = 0; i < MAXSOUNDS; i++) {
 		char str[64];
-		sprintf(str, "data/snd%i.voc", i);
+		sprintf(str, "data/snd%i.wav", i);
 
 		sfx[i] = Mix_LoadWAV(str);
+		if(sfx[i] == NULL) {
+			printf("Error loading %s\n", str);
+		}
+		else {
+			printf("Loaded %s\n", str);
+		}
 	}
 
 	// load default world and its music
@@ -2225,11 +2254,24 @@ int main()
 
 	atexit(SDL_Quit);
 
-#ifdef SCALE_SCREEN
-	screen = SDL_SetVideoMode(640, 400, 32, SDL_SWSURFACE);
-#else
-	screen = SDL_SetVideoMode(320, 240, 16, SDL_SWSURFACE);
-#endif
+	result = SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_FULLSCREEN_DESKTOP, &window, &renderer);
+	if(result) {
+		printf("Failed to init window\n");
+		exit(2);
+	}
+
+	screen = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_DEPTH, R_MASK, G_MASK, B_MASK, A_MASK);
+	if(screen == NULL) {
+		printf("Failed to create screen surface\n");
+		exit(3);
+	}
+
+	screenTexture = SDL_CreateTexture(renderer, PIXEL_FORMAT, SDL_TEXTUREACCESS_STREAMING, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if(screenTexture == NULL) {
+		printf("Failed to create texture\n");
+		exit(4);
+	}
+
 	SDL_ShowCursor(SDL_DISABLE);
 
 	PathInit();
@@ -2238,7 +2280,7 @@ int main()
 	TimerInit();
 	InitGame();
 
-	keys = SDL_GetKeyState(NULL); // InputInit(); joystick also
+	keys = SDL_GetKeyboardState(NULL); // InputInit(); joystick also
 
 	Logo();
 	Intro();

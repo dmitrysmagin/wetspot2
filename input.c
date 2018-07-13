@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 #include "wetspot2.h"
 #include "font.h"
@@ -34,18 +34,18 @@
 static int pkeys[2][5] =
 {
 	{
-		SDLK_LCTRL,
-		SDLK_DOWN,
-		SDLK_LEFT,
-		SDLK_UP,
-		SDLK_RIGHT
+		SDL_SCANCODE_LCTRL,
+		SDL_SCANCODE_DOWN,
+		SDL_SCANCODE_LEFT,
+		SDL_SCANCODE_UP,
+		SDL_SCANCODE_RIGHT
 	},
 	{
-		SDLK_BACKSPACE,
-		SDLK_LALT,
-		SDLK_LSHIFT,
-		SDLK_SPACE,
-		SDLK_LCTRL
+		SDL_SCANCODE_BACKSPACE,
+		SDL_SCANCODE_LALT,
+		SDL_SCANCODE_LSHIFT,
+		SDL_SCANCODE_SPACE,
+		SDL_SCANCODE_LCTRL
 	}
 };
 
@@ -73,10 +73,10 @@ void SetPlayerKeys(int pnum)
 {
 	if(pnum == 0) {
 		// 1 player
-		pkeys[0][0] = SDLK_LCTRL;
+		pkeys[0][0] = SDL_SCANCODE_LCTRL;
 	} else {
 		// 2 players
-		pkeys[0][0] = SDLK_TAB;
+		pkeys[0][0] = SDL_SCANCODE_TAB;
 	}
 }
 
