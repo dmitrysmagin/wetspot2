@@ -38,7 +38,7 @@
 
 #ifdef SCALE_SCREEN
 #define SCREEN_WIDTH	640
-#define SCREEN_HEIGHT	480
+#define SCREEN_HEIGHT	400
 #define SCREEN_DEPTH	32
 #define R_MASK		0x00FF0000
 #define G_MASK		0x0000FF00
@@ -368,7 +368,7 @@ void HandlePotion()
 										}
 
 										char perc[64];
-										sprintf(perc, "%i%", percent); //perc$ = LTRIM$(STR$(percent)) + "%"
+										sprintf(perc, "%i%%", percent); //perc$ = LTRIM$(STR$(percent)) + "%"
 										SPrint(perc, ((96 + ((4 - strlen(perc)) * 8)) + (e * 96)), 80, Game.textcol);
 										SPrint(str, (80 + (e * 96) + t), 88, Game.textcol);
 
