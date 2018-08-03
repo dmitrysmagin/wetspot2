@@ -21,7 +21,7 @@ set(CUSTOM_CFLAGS "-DSCALE_SCREEN")
 ADD_DEFINITIONS(${CUSTOM_CFLAGS})
 
 # Set the list of source files for the main application
-set(SRCS font.c hiscore.c input.c logo.c menu.c palette.c sound.c sprites.c theend.c timer.c wetspot2.c world.c midiplay/mid_core.o midiplay/mid_drv.o midiplay/mid_opl3.o midiplay/ymf262.o)
+set(SRCS font.c hiscore.c input.c logo.c menu.c palette.c sound.c sprites.c theend.c timer.c wetspot2.c world.c midiplay/mid_core.c midiplay/mid_drv.c midiplay/mid_opl3.c midiplay/ymf262.c)
 
 # Set the executable, along with its source files
 add_executable(wetspot2 ${SRCS})
