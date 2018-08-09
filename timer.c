@@ -102,7 +102,11 @@ void CheckTime() // TimePass:
 void TimerInit()
 {
 	// make it tick every second
+#ifndef USE_SDL2
 	timer_id = SDL_AddTimer(1000, (SDL_NewTimerCallback)&TimePass, NULL);
+#else
+	timer_id = SDL_AddTimer(1000, (SDL_TimerCallback)&TimePass, NULL);
+#endif
 }
 
 void TimerDeinit()

@@ -34,18 +34,18 @@
 static int pkeys[2][5] =
 {
 	{
-		SDLK_LCTRL,
-		SDLK_DOWN,
-		SDLK_LEFT,
-		SDLK_UP,
-		SDLK_RIGHT
+		SKEY_LCTRL,
+		SKEY_DOWN,
+		SKEY_LEFT,
+		SKEY_UP,
+		SKEY_RIGHT
 	},
 	{
-		SDLK_BACKSPACE,
-		SDLK_LALT,
-		SDLK_LSHIFT,
-		SDLK_SPACE,
-		SDLK_LCTRL
+		SKEY_BACKSPACE,
+		SKEY_LALT,
+		SKEY_LSHIFT,
+		SKEY_SPACE,
+		SKEY_LCTRL
 	}
 };
 
@@ -73,10 +73,10 @@ void SetPlayerKeys(int pnum)
 {
 	if(pnum == 0) {
 		// 1 player
-		pkeys[0][0] = SDLK_LCTRL;
+		pkeys[0][0] = SKEY_LCTRL;
 	} else {
 		// 2 players
-		pkeys[0][0] = SDLK_TAB;
+		pkeys[0][0] = SKEY_TAB;
 	}
 }
 

@@ -135,6 +135,11 @@ extern Uint8 *keys;
 extern GAMETYPE Game;
 extern DEATHTYPE Death[2];
 
+#ifdef USE_SDL2
+extern SDL_Renderer *renderer;
+extern SDL_Texture *screenTexture;
+#endif
+
 extern SDL_Surface *screen;
 extern SDL_Surface *gamescreen;
 extern SDL_Surface *theend;
@@ -143,3 +148,9 @@ void RedrawLevel();
 void DrawObjects();
 
 void PlayGame(int mode, int area, int level, int players);
+
+/* Emulate some SDL1.2 functions on top of SDL2 */
+#ifdef USE_SDL2
+#define SDL_LOGPAL 0
+#define SDL_SetPalette(A, B, C, D, E) SDL_SetPaletteColors(A->format->palette, C, D, E)
+#endif
