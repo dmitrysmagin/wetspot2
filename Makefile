@@ -5,11 +5,17 @@
 
 NAME      = wetspot2
 CC        = gcc
-CFLAGS    = -g -O2 -Wall -Wextra -Wno-unused -std=c99 -fms-extensions -DSCALE_SCREEN
+CFLAGS    = -g -O2 -Wall -Wextra -Wno-unused -std=c99 -fms-extensions \
+	    -DSCALE_SCREEN
 INCS      = -I.
 LDFLAGS   =
-LIBS      = -lm -lSDL_gfx -lSDL -lSDL_image -lSDL_mixer
+LIBS      = -lm
 
+# SDL1.2 defines
+CFLAGS   += `sdl-config --cflags`
+LIBS     += -lSDL_gfx -lSDL -lSDL_image -lSDL_mixer
+
+# Object files
 OBJS      = wetspot2.o font.o palette.o timer.o logo.o sprites.o \
 	    menu.o world.o input.o sound.o theend.o hiscore.o
 

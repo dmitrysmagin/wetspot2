@@ -19,8 +19,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_mixer.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 #include "wetspot2.h"
 #include "font.h"

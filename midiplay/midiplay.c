@@ -22,7 +22,7 @@
 #include <string.h>
 #include <conio.h>
 #include <unistd.h>
-#include <SDL/SDL.h>
+#include <SDL.h>
 
 #include "mid.h"
 
