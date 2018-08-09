@@ -11,9 +11,15 @@ INCS      = -I.
 LDFLAGS   =
 LIBS      = -lm
 
+ifndef SDL2
 # SDL1.2 defines
 CFLAGS   += `sdl-config --cflags`
-LIBS     += -lSDL_gfx -lSDL -lSDL_image -lSDL_mixer
+LIBS     += -lSDL_gfx -lSDL -lSDL_mixer
+else
+# SDL2 defines
+CFLAGS   += `sdl2-config --cflags` -DUSE_SDL2
+LIBS     += -lSDL2 -lSDL2_gfx -lSDL2_mixer
+endif
 
 # Object files
 OBJS      = wetspot2.o font.o palette.o timer.o logo.o sprites.o \
