@@ -2235,7 +2235,7 @@ void InitGame()
 	// load sounds
 	for(int i = 0; i < MAXSOUNDS; i++) {
 		char str[64];
-		sprintf(str, "data/snd%i.voc", i);
+		sprintf(str, "data/snd%i.wav", i);
 
 		sfx[i] = Mix_LoadWAV(str);
 	}
