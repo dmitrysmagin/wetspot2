@@ -14,6 +14,7 @@
      For other informations on this game, extra stuff and more, visit the
 Enhanced Creations home, the QuickBasic Enhanced Programming Page located at:
 
+https://web.archive.org/web/20171217000551/reocities.com/SiliconValley/Lakes/7303/
                 http://reocities.com/SiliconValley/Lakes/7303/
                           http://www.ecplusplus.com/
 
@@ -108,23 +109,23 @@ Once the small intro ends, a main menu appears on the screen. The selection
 bar can be moved using the arrow keys, and <ENTER> selects the highlighted
 option. Here follows a brief description of the available options:
 
-þ START ONE PLAYER GAME
+Ã¾ START ONE PLAYER GAME
         Starts the game in one player mode from the beginning
-þ START TWO PLAYERS GAME
+Ã¾ START TWO PLAYERS GAME
         Starts the game in two players mode from the beginning
-þ ENTER PASSWORD
+Ã¾ ENTER PASSWORD
         Allows you to enter a password to an area of the current world. See
         above for details on how the password system works.
-þ LOAD EXTERNAL WORLD
+Ã¾ LOAD EXTERNAL WORLD
         Allows you to change the current world. For details see section
         2.4 - External worlds.
-þ OPTIONS
+Ã¾ OPTIONS
         Brings you to the options menu. Here you can change the players
         control methods, the sound/music volume, and even customize the keys
         for the keyboard control method.
-þ SHOW CREDITS
+Ã¾ SHOW CREDITS
         Shows the credits of the game
-þ QUIT
+Ã¾ QUIT
         Exits the game
 
 If you don't press any key for a while, a demo of the game will begin,
@@ -386,7 +387,7 @@ the game, refer to this table; maybe here you'll find the solution to your
 problem.
 
 Message: "A game data file is missing, program aborted. Please install again."
-        þ Cause:  WetSpot 2 can't find a required game data file in the
+        Ã¾ Cause:  WetSpot 2 can't find a required game data file in the
                 current directory.
         > Solution:  Be sure to have all the game files in the same directory
                 and to run the game from there, otherwise you'll have to
@@ -394,7 +395,7 @@ Message: "A game data file is missing, program aborted. Please install again."
 
 Message: "There was a general disk error while attempting to access a game
         file; see README.TXT for details."
-        þ Cause:  This error may occur in different situations: the most
+        Ã¾ Cause:  This error may occur in different situations: the most
                 usual one is that you're running the game from a write
                 protected diskette, otherwise there's some problem with
                 your device (the disk can be full!)
@@ -404,27 +405,27 @@ Message: "There was a general disk error while attempting to access a game
 
 Message: "Not enough memory to run WetSpot 2; see README.TXT for game
         requirements."
-        þ Cause:  you do not have enough free base memory to run the program;
+        Ã¾ Cause:  you do not have enough free base memory to run the program;
                 this error should also occur during the game.
         > Solution:  Free enough base memory and load WetSpot 2 again. See
                 section "1.2 - Game requirements" for details.
 
 Message: "This program requires 1344 Kbytes of free EMS memory to run!"
-        þ Cause 1:  You don't have an extended memory manager (EMM) loaded in
+        Ã¾ Cause 1:  You don't have an extended memory manager (EMM) loaded in
                 memory.
-        þ Cause 2:  You have the EMM, but you haven't free EMS handles or
+        Ã¾ Cause 2:  You have the EMM, but you haven't free EMS handles or
                 enough free EMS memory to run the game.
         > Solution:  Take a look at section "1.3 - Installing the game" of
                 this manual and follow the instructions.
 
 Message: "Game configuration not set, please run SETUP first."
-        þ Cause:  WetSpot 2 can't find the configuration file (WETSPOT2.CFG)
+        Ã¾ Cause:  WetSpot 2 can't find the configuration file (WETSPOT2.CFG)
                 in the current directory.
         > Solution:  Run the game from its directory or execute the SETUP
                 program saving your settings.
 
 Message: "Bad game settings, please run SETUP again."
-        þ Cause:  This error should never come out; it means that the
+        Ã¾ Cause:  This error should never come out; it means that the
                 configuration file is corrupted, probably because it was
                 manually edited, or because the game was brought to another
                 computer with a different hardware.
@@ -432,14 +433,14 @@ Message: "Bad game settings, please run SETUP again."
 
 Message: "Unable to detect the SBMIDI driver; load it or disable musics in
         SETUP."
-        þ Cause:  You turned on the musics in the SETUP program and tried to
+        Ã¾ Cause:  You turned on the musics in the SETUP program and tried to
                 run the game without loading the SBMIDI driver.
         > Solution:  Load the driver before running the game or disable the
                 musics in the SETUP program.
 
 Message: "Int 80h is not being used by SBMIDI; free it or disable musics in
         SETUP."
-        þ Cause:  You have interrupt 80h already occupied by a program that
+        Ã¾ Cause:  You have interrupt 80h already occupied by a program that
                 is not the SBMIDI driver. It is possible that you have loaded
                 such a driver, but into another interrupt.
         > Solution:  WetSpot 2 requires the SBMIDI driver to be loaded into
@@ -449,7 +450,7 @@ Message: "Int 80h is not being used by SBMIDI; free it or disable musics in
                 in the SETUP program.
 
 Message: "Failed to reset sound card DSP, run SETUP again."
-        þ Cause:  WetSpot 2 was unable to reset the DSP of your sound card,
+        Ã¾ Cause:  WetSpot 2 was unable to reset the DSP of your sound card,
                 or a sound card was not found on your system.
         > Solution:  Run the SETUP program again.
 
@@ -468,7 +469,7 @@ unavoidable, this section.
 Here follows a list of the few known bugs and their possible solutions:
 
 Problem:  The game crashes during initialization.
-        þ Cause:  Probably it's a problem with your expanded memory manager;
+        Ã¾ Cause:  Probably it's a problem with your expanded memory manager;
                 W2 has an EMS detection routine, but it can fail and if the
                 EMM isn't loaded, the result would be this.
         > Solution:  Load an expanded memory manager at the start up of your
@@ -476,58 +477,58 @@ Problem:  The game crashes during initialization.
 
 Problem:  The game runs, but I can't hear any music coming out of my speakers,
         though I think I've successfully executed the SETUP program.
-        þ Cause:  You've not run correctly the SETUP program.
+        Ã¾ Cause:  You've not run correctly the SETUP program.
         > Solution:  Exit the game and run SETUP, then execute W2 again.
 
 Problem:  I can see small flashes into the firework animations on the Top 10
         screen.
-        þ Cause:  This is a small bug I still haven't fixed...
+        Ã¾ Cause:  This is a small bug I still haven't fixed...
         > Solution:  This error should let you play without problems.
 
 Problem:  My girlfriend hates me.
-        þ Cause:  ??
+        Ã¾ Cause:  ??
         > Solution:  Let her hate you even more...
 
 Problem:  Suddenly the game ended with a brief error message while I was
         playing (any world or area).
-        þ Cause:  Unknown problem.
+        Ã¾ Cause:  Unknown problem.
         > Solution:  Please let me know exactly how this error occured, so I
                 can fix it!
 
 Problem:  While playing with my joystick, the player moves almost randomly.
-        þ Cause:  Your joystick is too sensible.
+        Ã¾ Cause:  Your joystick is too sensible.
         > Solution:  Adjust the joystick resolution into the SETUP program.
                 See section "2.3 - Controls" for details.
 
 Problem:  The game crashed and before this happened I heard strange noises
         coming out of my speakers.
-        þ Cause:  I've had this problem a few times, and I think it's due to
+        Ã¾ Cause:  I've had this problem a few times, and I think it's due to
                 a bad EMS or DMA channel initialization.
         > Solution:  If you hear strange noises, exit the game before it's
                 too late, then start W2 again; I've never heard the noises
                 after running the game twice.
 
 Problem:  I hear the musics, but I don't hear any sounds...
-        þ Cause:  You have bad sound settings.
+        Ã¾ Cause:  You have bad sound settings.
         > Solution:  Run SETUP again and change your sound card settings.
 
 Problem:  This game really sucks!
-        þ Cause:  Me.
+        Ã¾ Cause:  Me.
         > Solution:  Play it!
 
 Problem:  The game crashed and the music was still playing...
-        þ Cause:  This error may occur if you have an old sound card; I've
+        Ã¾ Cause:  This error may occur if you have an old sound card; I've
                 heard that SB 2.0 gives this problem, and this is probably
                 due to the DMA transfer before playing a sound.
         > Solution:  I'll ask to the author of the last version of DMAplay
                 (Toshihiro Horie) to solve this...
 
 Problem:  The sounds are distorted when running from Windows 95.
-        þ Cause:  Bill Gates.
+        Ã¾ Cause:  Bill Gates.
         > Solution:  Restart the game or load it while in plain DOS mode.
 
 Problem:  The game still crashes while playing a sound!
-        þ Cause:  Unknown.
+        Ã¾ Cause:  Unknown.
         > Solution:  I'm not able to answer your question; you should try
                 asking to Toshihiro Horie, because he's the author of the
                 DMAplay routine I used to play sounds. His E-Mail address can
