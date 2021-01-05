@@ -14,7 +14,7 @@ LIBS      = -lm
 ifndef SDL2
 # SDL1.2 defines
 CFLAGS   += `sdl-config --cflags`
-LIBS     += -lSDL_gfx -lSDL -lSDL_mixer
+LIBS     += -lSDL -lSDL_gfx -lSDL_mixer
 else
 # SDL2 defines
 CFLAGS   += `sdl2-config --cflags` -DUSE_SDL2
