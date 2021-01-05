@@ -2,6 +2,8 @@ Wetspot II remake v0.9
 
 C/SDL port by Dmitry Smagin
 dmitry.s.smagin@gmail.com
+https://github.com/dmitrysmagin/wetspot2
+https://dmitrysmagin.github.io/
 
 original QB45 version by Angelo Mottola
 a.mottola@gmail.com
