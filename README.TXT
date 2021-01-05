@@ -14,9 +14,8 @@
      For other informations on this game, extra stuff and more, visit the
 Enhanced Creations home, the QuickBasic Enhanced Programming Page located at:
 
-https://web.archive.org/web/20171217000551/reocities.com/SiliconValley/Lakes/7303/
-                http://reocities.com/SiliconValley/Lakes/7303/
-                          http://www.ecplusplus.com/
+        https://geocities.restorativland.org/SiliconValley/Lakes/7303/
+    http://web.archive.org/web/20060509131702/http://www.ecplusplus.com/
 
 
 TABLE OF CONTENTS ___________________________________________________________
