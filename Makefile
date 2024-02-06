@@ -11,13 +11,21 @@ INCS      = -I.
 LDFLAGS   =
 LIBS      = -lm
 
-ifndef SDL2
+ifdef EMSCRIPTEN
+NAME     := wetspot2.js
+CC       := emcc
+CFLAGS   += -DUSE_SDL2 -s USE_SDL=2 -s USE_SDL_MIXER=2 -s USE_SDL_GFX=2 \
+	    -s SDL2_MIXER_FORMATS=wav,mid -s SDL2_IMAGE_FORMATS=bmp
+LDFLAGS  += -s ASYNCIFY --use-preload-plugins --embed-file data \
+	    --embed-file world -sALLOW_MEMORY_GROWTH -lSDL2 -lSDL2_gfx \
+		-lSDL2_mixer
+else ifndef SDL2
 # SDL1.2 defines
 CFLAGS   += `sdl-config --cflags`
 LIBS     += -lSDL -lSDL_gfx -lSDL_mixer
 else
 # SDL2 defines
-CFLAGS   += `sdl2-config --cflags` -DUSE_SDL2
+CFLAGS   += `sdl2-config --cflags` -DUSE_SDL2 
 LIBS     += -lSDL2 -lSDL2_gfx -lSDL2_mixer
 endif
 

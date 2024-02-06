@@ -22,6 +22,9 @@
 #include <math.h>
 #include <SDL.h>
 #include <SDL_mixer.h>
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 
 #include "wetspot2.h"
 #include "font.h"
@@ -38,7 +41,7 @@ SDL_TimerID timer_id;
 int TimerOn = FALSE;
 
 // timer routine
-Uint32 TimePass(Uint32 interval/*, void *param*/)
+Uint32 TimePass(Uint32 interval, void *param)
 {
 	if(TimerOn)
 		Game.time--;
@@ -135,6 +138,18 @@ void Wait()
 
 	if(next_game_tick == 17) next_game_tick += frame_end;
 	sleep_time = next_game_tick - frame_end;
-	if(sleep_time > 0) SDL_Delay(sleep_time); else SDL_Delay(2);
+	if(sleep_time > 0) {
+#ifdef __EMSCRIPTEN__
+		emscripten_sleep(sleep_time);
+#else
+		SDL_Delay(sleep_time); 
+#endif
+	} else {
+#ifdef __EMSCRIPTEN__
+		emscripten_sleep(2);
+#else
+		SDL_Delay(2); 
+#endif
+	}
 	if(frames == 0) frame_start = next_game_tick;
 }
