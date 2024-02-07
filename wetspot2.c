@@ -22,6 +22,9 @@
 #include <time.h>
 #include <SDL.h>
 #include <SDL_mixer.h>
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 
 #include "wetspot2.h"
 #include "font.h"
@@ -2244,12 +2247,28 @@ void InitGame()
 	LoadWorld("./world/WETSPOT2.WWD");
 }
 
-#undef main
-int main()
+#ifdef __EMSCRIPTEN__
+void nop() { }
+#endif
+
+int main(int argc, char* argv[])
 {
 	int result;
 
+#ifdef __EMSCRIPTEN__
+    EM_ASM(
+        // Mount IndexedDB storage for high scores
+        FS.mkdir('/WETSPOT2');
+        FS.mount(IDBFS, {}, '/WETSPOT2');
+        FS.syncfs(true, _ => {}); // Load IndexedDB data
+    );
+
+	// Main loop is required for SDL_AddTimer to work under Emscripten
+	emscripten_set_main_loop(nop, 0, 0);
+	result = SDL_Init(SDL_INIT_TIMER);
+#else
 	result = SDL_Init(SDL_INIT_EVERYTHING);
+#endif
 	if(result) {
 		printf("Failed to init SDL\n");
 		exit(1);

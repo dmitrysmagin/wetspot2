@@ -5,19 +5,27 @@
 
 NAME      = wetspot2
 CC        = gcc
-CFLAGS    = -g -O2 -Wall -Wextra -Wno-unused -std=c99 -fms-extensions \
+CFLAGS    = -g -O2 -Wall -Wextra -Wno-unused -fms-extensions \
 	    -DSCALE_SCREEN
 INCS      = -I.
 LDFLAGS   =
 LIBS      = -lm
 
-ifndef SDL2
+ifdef EMSCRIPTEN
+NAME     := wetspot2.js
+CC       := emcc
+CFLAGS   += -DUSE_SDL2 -s USE_SDL=2 -s USE_SDL_MIXER=2 -s USE_SDL_GFX=2 \
+	    -s SDL2_MIXER_FORMATS=wav,mid -s SDL2_IMAGE_FORMATS=bmp -std=gnu99
+LDFLAGS  += -s ASYNCIFY --use-preload-plugins --embed-file data \
+	    --embed-file world -sALLOW_MEMORY_GROWTH -lSDL2 -lSDL2_gfx \
+		-lSDL2_mixer -lidbfs.js -s FORCE_FILESYSTEM
+else ifndef SDL2
 # SDL1.2 defines
-CFLAGS   += `sdl-config --cflags`
+CFLAGS   += `sdl-config --cflags` -std=c99
 LIBS     += -lSDL -lSDL_gfx -lSDL_mixer
 else
 # SDL2 defines
-CFLAGS   += `sdl2-config --cflags` -DUSE_SDL2
+CFLAGS   += `sdl2-config --cflags` -DUSE_SDL2  -std=c99
 LIBS     += -lSDL2 -lSDL2_gfx -lSDL2_mixer
 endif
 
