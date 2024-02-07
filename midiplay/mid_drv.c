@@ -70,6 +70,9 @@ void fm_reset()
 
 int mid_init(int rate, int channels)
 {
+#ifdef USE_SDL2
+    rate *= 4;
+#endif
 	samplerate = rate;
 	framesample = samplerate / 60;
 
