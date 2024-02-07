@@ -2256,6 +2256,13 @@ int main(int argc, char* argv[])
 	int result;
 
 #ifdef __EMSCRIPTEN__
+    EM_ASM(
+        // Mount IndexedDB storage for high scores
+        FS.mkdir('/WETSPOT2');
+        FS.mount(IDBFS, {}, '/WETSPOT2');
+        FS.syncfs(true, _ => {}); // Load IndexedDB data
+    );
+
 	// Main loop is required for SDL_AddTimer to work under Emscripten
 	emscripten_set_main_loop(nop, 0, 0);
 	result = SDL_Init(SDL_INIT_TIMER);

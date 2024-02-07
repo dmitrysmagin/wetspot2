@@ -22,6 +22,9 @@
 #include <time.h>
 #include <SDL.h>
 #include <SDL_mixer.h>
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 
 #include "wetspot2.h"
 #include "font.h"
@@ -56,7 +59,11 @@ FIREWORKTYPE FireWork[MAXFIREWORKS];
 RECORDTYPE Record[10];
 float fx[50], fy[50];
 
+#ifndef __EMSCRIPTEN__
 char homepath[256] = "./";
+#else
+char homepath[256] = "/WETSPOT2";
+#endif
 
 void PathInit()
 {
@@ -338,6 +345,13 @@ void CheckForRecord()
 	}
 
 	SaveRecord();
+#ifdef __EMSCRIPTEN__
+	EM_ASM(
+		// Persist local copy to IndexedDB
+		FS.syncfs(false, _ => { });
+	);
+#endif
+
 
 	// Shows the updated top 10 players list
 	ShowTop10(Blink[0], Blink[1]);
