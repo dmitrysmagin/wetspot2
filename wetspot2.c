@@ -22,6 +22,7 @@
 #include <time.h>
 #include <SDL.h>
 #include <SDL_mixer.h>
+
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
 #endif
@@ -2251,6 +2252,9 @@ void InitGame()
 void nop() { }
 #endif
 
+#ifndef __EMSCRIPTEN__
+#undef main
+#endif
 int main(int argc, char* argv[])
 {
 	int result;

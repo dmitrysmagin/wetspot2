@@ -12,3 +12,5 @@
 *.REC
 *.EXE
 todo.txt
+.vscode
+wetspot2-sdl2-win32*
