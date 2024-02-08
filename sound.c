@@ -135,7 +135,7 @@ void StopMIDI()
 void SoundInit()
 {
 	Mix_Init(0);
-	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024);
+	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
 
 	int frequency;
 	int format;

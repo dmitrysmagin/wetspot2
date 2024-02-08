@@ -22,6 +22,7 @@
 #include <time.h>
 #include <SDL.h>
 #include <SDL_mixer.h>
+
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
 #endif
@@ -345,13 +346,13 @@ void CheckForRecord()
 	}
 
 	SaveRecord();
+
 #ifdef __EMSCRIPTEN__
 	EM_ASM(
 		// Persist local copy to IndexedDB
 		FS.syncfs(false, _ => { });
 	);
 #endif
-
 
 	// Shows the updated top 10 players list
 	ShowTop10(Blink[0], Blink[1]);
