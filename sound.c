@@ -137,11 +137,15 @@ void SoundInit()
 	Mix_Init(0);
 	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 2048);
 
+	int frequency;
+	int format;
+	int channels;
+	Mix_QuerySpec(&frequency, &format, &channels);
 	atexit(Mix_Quit);
 	atexit(Mix_CloseAudio);
 	atexit(SoundDeinit);
 
-	mid_init(22050, 2);
+	mid_init(frequency, channels);
 }
 
 void SoundDeinit()
